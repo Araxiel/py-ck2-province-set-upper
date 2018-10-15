@@ -31,6 +31,9 @@ MANIFEST
 *.e4p
 .idea/
 .eric6project/
+output/
+provinces.csv
+*.ink
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
