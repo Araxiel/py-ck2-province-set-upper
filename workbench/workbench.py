@@ -162,7 +162,6 @@ class execute():
         current_id = startID
         provinces = spreadsheet.readlines()
         for x in provinces:
-            print()
             province_dict = province.read.dictionary_creation(x)
             province.write.history_province(province_dict, current_id, culture.lower(), religion.lower(), is_tribal, terrain.lower())
             province.write.history_titles(province_dict)
@@ -170,6 +169,3 @@ class execute():
             province.write.landed_titles(province_dict,rgb_basis_tuple)
             province.write.locs(province_dict,current_id)
             current_id += 1
-    def init():
-        global fileName
-        fileName = None
