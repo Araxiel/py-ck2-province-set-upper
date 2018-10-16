@@ -143,7 +143,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def on_actionAbout_triggered(self):
         from ui.About import AboutUI
         ui = AboutUI()
-        ui.show()
+        ui.exec_()
+
 
     @pyqtSlot()
     def on_actionHelp_triggered(self):
