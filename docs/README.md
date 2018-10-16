@@ -11,8 +11,14 @@ Using a comma-separated values table as a source, all necessary files and lines 
 
 Written using [Python 3.7.0](https://www.python.org/downloads/release/python-370/)
 
-This is a super leightweight little tool I wrote for myself using Pythonm. It's not fancy, but it get's the job done with incredible efficiency.
+This is a super leightweight little tool I wrote for myself using Python. It's not fancy, but it get's the job done with incredible efficiency.
 
+It's use lies somewhere between doing everything manually, and something like CK2's StoryGen.
+
+Planned:
+  * Random Dynasty generator
+  * Random History generator
+  
 ___
 
 Written by [Araxiel](https://github.com/Araxiel)
