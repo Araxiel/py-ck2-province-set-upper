@@ -3,6 +3,8 @@ The Province Set-Upper is a small utility to make map-creating less of a tedious
 
 ![screenshot][id]
 ___
+For help, see the [wiki](https://github.com/Araxiel/CK2-Province_Set-Upper/wiki) and more specifically the [**Help**](https://github.com/Araxiel/CK2-Province_Set-Upper/wiki/Help) page
+___
 
 Written for CK2 2.8.3.3 (SAHQ)
 Tested with **CK2 2.8.3.3 (SAHQ)**
@@ -19,6 +21,7 @@ Planned:
   * Random Dynasty generator
   * Random History generator
   
+Any help and contributions are welcome. Just open an issue or pull request or shot me a message or whatever.
 ___
 
 Written by [Araxiel](https://github.com/Araxiel)
