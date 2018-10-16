@@ -16,7 +16,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     """
     Class documentation goes here.
     """
-    workbench.execute.init() #doesn't seem to put fileName into global?
     global fileName
     fileName = None
     global startID
@@ -113,7 +112,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """
         global rgb_basis_r
         rgb_basis_r = p0
-        print(rgb_basis_r)
 
     @pyqtSlot(int)
     def on_spinBox_g_valueChanged(self, p0):
@@ -125,7 +123,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """
         global rgb_basis_g
         rgb_basis_g = p0
-        print(rgb_basis_g)
 
     @pyqtSlot(int)
     def on_spinBox_b_valueChanged(self, p0):
@@ -137,7 +134,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """
         global rgb_basis_b
         rgb_basis_b = p0
-        print(rgb_basis_b)
 
     @pyqtSlot()
     def on_actionQuit_triggered(self):
