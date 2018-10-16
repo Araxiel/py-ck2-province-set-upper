@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>520</width>
-    <height>494</height>
+    <width>247</width>
+    <height>403</height>
    </rect>
   </property>
   <property name="mouseTracking">
@@ -54,6 +54,9 @@
           <height>23</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>Load the .csv file</string>
+        </property>
         <property name="text">
          <string>Load</string>
         </property>
@@ -69,7 +72,7 @@
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>300</width>
+          <width>150</width>
           <height>20</height>
          </size>
         </property>
@@ -105,7 +108,7 @@
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The default culture of all provinces&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The province ID of the first province.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
          <string/>
@@ -154,7 +157,7 @@
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The default culture of all provinces&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The religion of all provinces.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
          <string/>
@@ -200,7 +203,7 @@
          </sizepolicy>
         </property>
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The default culture of all provinces&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The culture of all provinces.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
          <string/>
@@ -248,6 +251,9 @@
       </item>
       <item>
        <widget class="QCheckBox" name="checkBox_isTribal">
+        <property name="accessibleDescription">
+         <string>Check if the county capital is tribal.</string>
+        </property>
         <property name="text">
          <string>Is Tribal</string>
         </property>
@@ -288,6 +294,9 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="accessibleDescription">
+         <string>The terrain of the provinces</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -319,23 +328,37 @@
          <string>RGB Base:</string>
         </property>
         <property name="buddy">
-         <cstring>lineEdit_rgb</cstring>
+         <cstring>spinBox_r</cstring>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_rgb">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+       <widget class="QSpinBox" name="spinBox_r">
+        <property name="maximum">
+         <number>255</number>
         </property>
-        <property name="text">
-         <string/>
+        <property name="value">
+         <number>250</number>
         </property>
-        <property name="placeholderText">
-         <string>179, 222, 112</string>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="spinBox_g">
+        <property name="maximum">
+         <number>255</number>
+        </property>
+        <property name="value">
+         <number>105</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="spinBox_b">
+        <property name="maximum">
+         <number>255</number>
+        </property>
+        <property name="value">
+         <number>5</number>
         </property>
        </widget>
       </item>
@@ -355,13 +378,6 @@
      </layout>
     </item>
     <item>
-     <widget class="Line" name="line_2">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
      <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
@@ -372,10 +388,17 @@
       <property name="sizeHint" stdset="0">
        <size>
         <width>20</width>
-        <height>38</height>
+        <height>19</height>
        </size>
       </property>
      </spacer>
+    </item>
+    <item>
+     <widget class="Line" name="line_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -396,6 +419,9 @@
        <widget class="QPushButton" name="pushButton_write">
         <property name="enabled">
          <bool>true</bool>
+        </property>
+        <property name="toolTip">
+         <string>Write the files.</string>
         </property>
         <property name="text">
          <string>Write</string>
@@ -424,7 +450,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>520</width>
+     <width>247</width>
      <height>21</height>
     </rect>
    </property>
@@ -433,6 +459,7 @@
      <string>Help</string>
     </property>
     <addaction name="actionAbout"/>
+    <addaction name="separator"/>
     <addaction name="actionHelp"/>
    </widget>
    <widget class="QMenu" name="menuFile">
@@ -468,7 +495,9 @@
   <tabstop>lineEdit_culture</tabstop>
   <tabstop>checkBox_isTribal</tabstop>
   <tabstop>lineEdi_terrain</tabstop>
-  <tabstop>lineEdit_rgb</tabstop>
+  <tabstop>spinBox_r</tabstop>
+  <tabstop>spinBox_g</tabstop>
+  <tabstop>spinBox_b</tabstop>
   <tabstop>pushButton_write</tabstop>
  </tabstops>
  <resources/>
