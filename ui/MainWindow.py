@@ -148,7 +148,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_actionHelp_triggered(self):
-        webbrowser.open('https://github.com/Araxiel/CK2-Province_Set-Upper/wiki')  # Go to example.com
+        webbrowser.open('https://goo.gl/RDSgwA')  # Go to example.com
     
     @pyqtSlot()
     def on_pushButton_load_pressed(self):
