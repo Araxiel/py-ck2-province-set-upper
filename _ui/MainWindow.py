@@ -182,3 +182,4 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print(terrain)
             print(rgb_basis)
             workbench.execute.write(fileName[0],startID,culture,religion,is_tribal,terrain,rgb_basis)
+            QMessageBox.information(self, "Complete", "Complete\n\nCheck the Output folder")
