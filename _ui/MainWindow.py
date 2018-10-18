@@ -10,7 +10,7 @@ import webbrowser
 
 from .Ui_MainWindow import Ui_MainWindow
 
-from workbench import workbench
+from _workbench import workbench
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     """

@@ -19,7 +19,7 @@ class province():
     class write():
         def history_province(province_dict, current_id=6, culture = "norse", religion = "catholic", is_tribal = False, terrain = None):
             history_provinces_filename = str(current_id) + " - " + province_dict.get("county").lower()
-            rel_path = "output\\history\\provinces\\" + history_provinces_filename + ".txt"
+            rel_path = "Output\\history\\provinces\\" + history_provinces_filename + ".txt"
             import os
             os.makedirs(os.path.dirname(rel_path), exist_ok=True)
             with open(rel_path, "w") as file:
@@ -53,19 +53,19 @@ class province():
 
         def history_titles(province_dict):
             history_titles_filename = "c_" + province_dict.get("county").lower()
-            rel_path = "output\\history\\titles\\" + history_titles_filename + ".txt"
+            rel_path = "Output\\history\\titles\\" + history_titles_filename + ".txt"
             import os
             os.makedirs(os.path.dirname(rel_path), exist_ok=True)
             open(rel_path, "w")
 
         def init_province_set_up():
-            rel_path = "output\\common\\province_setup\\90_province_setup.txt"
+            rel_path = "Output\\common\\province_setup\\90_province_setup.txt"
             import os
             os.makedirs(os.path.dirname(rel_path), exist_ok=True)
             open(rel_path, "w")
 
         def province_set_up(province_dict, current_id=6, terrain="plains"):
-            rel_path = "output\\common\\province_setup\\90_province_setup.txt"
+            rel_path = "Output\\common\\province_setup\\90_province_setup.txt"
             import os
             os.makedirs(os.path.dirname(rel_path), exist_ok=True)
             with open(rel_path, "a") as file:
@@ -75,14 +75,14 @@ class province():
                 file.write("    terrain = " + terrain + "\n}\n")
 
         def init_landed_titles():
-            rel_path = "output\\common\\landed_titles\\90_landed_titles.txt"
+            rel_path = "Output\\common\\landed_titles\\90_landed_titles.txt"
             import os
             os.makedirs(os.path.dirname(rel_path), exist_ok=True)
             open(rel_path, "w")
 
         def landed_titles(province_dict, rgb_basis = (255, 102, 0) ):
             rgb_value = randomise.randomise_colors(rgb_basis)
-            rel_path = "output\\common\\landed_titles\\90_landed_titles.txt"
+            rel_path = "Output\\common\\landed_titles\\90_landed_titles.txt"
             import os
             os.makedirs(os.path.dirname(rel_path), exist_ok=True)
             with open(rel_path, "a") as file:
@@ -99,7 +99,7 @@ class province():
                 file.write("}\n")
 
         def init_loc():
-            rel_path = "output\\localisation\\90_province_setup.csv"
+            rel_path = "Output\\localisation\\90_province_setup.csv"
             import os
             os.makedirs(os.path.dirname(rel_path), exist_ok=True)
             open(rel_path, "w")
@@ -107,7 +107,7 @@ class province():
                 file.write("#CODE;ENGLISH;FRENCH;GERMAN;;SPANISH;;;;;;;;;x\n")
 
         def locs(province_dict,current_id):
-            rel_path = "output\\localisation\\90_province_setup.csv"
+            rel_path = "Output\\localisation\\90_province_setup.csv"
             import os
             os.makedirs(os.path.dirname(rel_path), exist_ok=True)
             with open(rel_path, "a") as file:
