@@ -122,6 +122,16 @@ class province():
                     file.write("b_" + province_dict_instance.lower() + ";"+province_dict_instance+";"+province_dict_instance+";"+province_dict_instance+";;"+province_dict_instance+";;;;;;;;;\n")
                     num += 1
 
+        def random_flag(province_dict):
+            import shutil
+            import os
+            import random
+            flag_file_name = "c_" + province_dict.get("county").lower().replace(" ", "_") + ".tga"
+            flag_list = os.listdir("flags")
+            rel_path = "Output\\gfx\\flags\\"
+            rel_file_path = rel_path + flag_file_name
+            os.makedirs(os.path.dirname(rel_file_path), exist_ok=True)
+            shutil.copyfile("flags\\" + random.choice(flag_list), rel_file_path)
 class randomise():
     def randomise_color(value = 100):
         import random
@@ -168,4 +178,5 @@ class execute():
             province.write.province_set_up(province_dict, current_id, terrain)
             province.write.landed_titles(province_dict,rgb_basis_tuple)
             province.write.locs(province_dict,current_id)
+            province.write.random_flag(province_dict)
             current_id += 1
