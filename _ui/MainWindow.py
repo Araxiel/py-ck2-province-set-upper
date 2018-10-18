@@ -10,7 +10,7 @@ import webbrowser
 
 from .Ui_MainWindow import Ui_MainWindow
 
-from workbench import workbench
+from _workbench import workbench
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     """
@@ -141,7 +141,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     @pyqtSlot()
     def on_actionAbout_triggered(self):
-        from ui.About import AboutUI
+        from _ui.About import AboutUI
         ui = AboutUI()
         ui.exec_()
 
@@ -182,3 +182,4 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print(terrain)
             print(rgb_basis)
             workbench.execute.write(fileName[0],startID,culture,religion,is_tribal,terrain,rgb_basis)
+            QMessageBox.information(self, "Complete", "Complete\n\nCheck the Output folder")
