@@ -7,32 +7,32 @@ class province():
                 county = province_elements[0],
                 barony_1 = province_elements[1],
             )
-
             num = 2
             for x in province_elements[2:]:
                 if x == "x":
                     break
                 province_dict["barony_" + str(num)] = province_elements[num]
                 num += 1
-
             return province_dict;
+
     class write():
         def history_province(province_dict, current_id=6, culture = "norse", religion = "catholic", is_tribal = False, terrain = None):
-            history_provinces_filename = str(current_id) + " - " + province_dict.get("county").lower()
+            underscored_name = province.write.underscore_name(province_dict.get("county"))
+            history_provinces_filename = str(current_id) + " - " + underscored_name
             rel_path = "Output\\history\\provinces\\" + history_provinces_filename + ".txt"
             import os
             os.makedirs(os.path.dirname(rel_path), exist_ok=True)
             with open(rel_path, "w") as file:
                 file.write("# " + str(current_id) + " - " + province_dict.get("county") + "\n\n# County Title\n")
-                file.write("title = c_" + province_dict.get("county").lower() + "\n\n")
+                file.write("title = c_" + underscored_name + "\n\n")
                 file.write("# Settlements\nmax_settlements = " + str(len(province_dict.keys())-1) + "\n")
                 if ( is_tribal == True ):
-                    file.write("b_" + province_dict.get("barony_1").lower() + " = is_tribal\n\n")
+                    file.write("b_" + province_dict.get("barony_1").lower().replace(" ", "_") + " = is_tribal\n\n")
                     province.write.comment_overflow_baronies(province_dict,file,is_tribal)
                 else:
-                    file.write("b_" + province_dict.get("barony_1").lower() + " = castle\n")
-                    file.write("b_" + province_dict.get("barony_2").lower() + " = city\n")
-                    file.write("b_" + province_dict.get("barony_3").lower() + " = temple\n\n")
+                    file.write("b_" + province_dict.get("barony_1").lower().replace(" ", "_") + " = castle\n")
+                    file.write("b_" + province_dict.get("barony_2").lower().replace(" ", "_") + " = city\n")
+                    file.write("b_" + province_dict.get("barony_3").lower().replace(" ", "_") + " = temple\n\n")
                     province.write.comment_overflow_baronies(province_dict,file,is_tribal)
                 file.write("\n# Misc\nculture = " + culture + "\nreligion = " + religion + "\n")
                 if terrain is not None:
@@ -48,11 +48,11 @@ class province():
                 province_dict_instance = province_dict.get("barony_" + str(num))
                 if province_dict_instance is None:
                     break
-                file.write("#b_" + province_dict_instance.lower() + "\n")
+                file.write("#b_" + province_dict_instance.lower().replace(" ", "_") + "\n")
                 num += 1
 
         def history_titles(province_dict):
-            history_titles_filename = "c_" + province_dict.get("county").lower()
+            history_titles_filename = "c_" + province_dict.get("county").lower().replace(" ", "_")
             rel_path = "Output\\history\\titles\\" + history_titles_filename + ".txt"
             import os
             os.makedirs(os.path.dirname(rel_path), exist_ok=True)
@@ -70,7 +70,7 @@ class province():
             os.makedirs(os.path.dirname(rel_path), exist_ok=True)
             with open(rel_path, "a") as file:
                 file.write(str(current_id) + " = {\n")
-                file.write("    title = c_" + province_dict.get("county").lower() + "\n")
+                file.write("    title = c_" + province_dict.get("county").lower().replace(" ", "_") + "\n")
                 file.write("    max_settlements = " + str(len(province_dict.keys())-1) + "\n")
                 file.write("    terrain = " + terrain + "\n}\n")
 
@@ -86,13 +86,13 @@ class province():
             import os
             os.makedirs(os.path.dirname(rel_path), exist_ok=True)
             with open(rel_path, "a") as file:
-                file.write("c_" + province_dict.get("county").lower() + " = {\n")
+                file.write("c_" + province_dict.get("county").lower().replace(" ", "_") + " = {\n")
                 num = 1
                 for x in province_dict:
                     province_dict_instance = province_dict.get("barony_" + str(num))
                     if province_dict_instance is None:
                         break
-                    file.write("    b_" + province_dict_instance.lower() + " = { }\n")
+                    file.write("    b_" + province_dict_instance.lower().replace(" ", "_") + " = { }\n")
                     num += 1
                 file.write("    color = { " + str(rgb_value[0]) +" "+ str(rgb_value[1]) +" "+ str(rgb_value[2]) + " }  # rgb" + str(rgb_value) + "\n")
                 file.write("    color2 = { " + str(rgb_basis[0]) +" "+ str(rgb_basis[1]) +" "+ str(rgb_basis[2]) + " } \n")
@@ -113,13 +113,13 @@ class province():
             with open(rel_path, "a") as file:
                 county_name = province_dict.get("county")
                 file.write("PROV"+str(current_id)+";"+county_name+";"+county_name+";"+county_name+";;"+county_name+";;;;;;;;;\n")
-                file.write("c_"+ county_name.lower()+";"+county_name+";"+county_name+";"+county_name+";;"+county_name+";;;;;;;;;\n")
+                file.write("c_"+ county_name.lower().replace(" ", "_")+";"+county_name+";"+county_name+";"+county_name+";;"+county_name+";;;;;;;;;\n")
                 num = 1
                 for x in province_dict:
                     province_dict_instance = province_dict.get("barony_" + str(num))
                     if province_dict_instance is None:
                         break
-                    file.write("b_" + province_dict_instance.lower() + ";"+province_dict_instance+";"+province_dict_instance+";"+province_dict_instance+";;"+province_dict_instance+";;;;;;;;;\n")
+                    file.write("b_" + province_dict_instance.lower().replace(" ", "_") + ";"+province_dict_instance+";"+province_dict_instance+";"+province_dict_instance+";;"+province_dict_instance+";;;;;;;;;\n")
                     num += 1
 
         def random_flag(province_dict):
@@ -132,6 +132,10 @@ class province():
             rel_file_path = rel_path + flag_file_name
             os.makedirs(os.path.dirname(rel_file_path), exist_ok=True)
             shutil.copyfile("flags\\" + random.choice(flag_list), rel_file_path)
+
+        def underscore_name(object_name):
+            return object_name.replace(" ", "_").lower()
+
 class randomise():
     def randomise_color(value = 100):
         import random
