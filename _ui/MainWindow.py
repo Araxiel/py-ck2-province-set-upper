@@ -174,7 +174,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             QMessageBox.information(self, "Error", "No File Loaded")
             return
         else:
-            print(fileName[0])
             print(startID)
             print(culture)
             print(religion)
