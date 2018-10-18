@@ -119,8 +119,10 @@ class province():
                 os.makedirs(os.path.dirname(rel_path), exist_ok=True)
                 with open(rel_path, "a") as file:
                     county_name = province_dict.get("county")
+                    county_name_adj = province.write.loc.adjective(county_name)
                     file.write("PROV"+str(current_id)+";"+county_name+";"+county_name+";"+county_name+";;"+county_name+";;;;;;;;;\n")
                     file.write("c_"+ county_name.lower().replace(" ", "_")+";"+county_name+";"+county_name+";"+county_name+";;"+county_name+";;;;;;;;;\n")
+                    file.write("c_"+ county_name.lower().replace(" ", "_")+"_adj;"+county_name_adj+";"+county_name_adj+";"+county_name_adj+";;"+county_name_adj+";;;;;;;;;\n")
                     num = 1
                     for x in province_dict:
                         province_dict_instance = province_dict.get("barony_" + str(num))
@@ -128,6 +130,10 @@ class province():
                             break
                         file.write("b_" + province_dict_instance.lower().replace(" ", "_") + ";"+province_dict_instance+";"+province_dict_instance+";"+province_dict_instance+";;"+province_dict_instance+";;;;;;;;;\n")
                         num += 1
+
+            def adjective(name):
+                adj_final = name + "n"
+                return adj_final
 
         class flags():
 
