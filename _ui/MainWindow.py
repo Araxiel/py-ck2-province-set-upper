@@ -141,7 +141,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     @pyqtSlot()
     def on_actionAbout_triggered(self):
-        from ui.About import AboutUI
+        from _ui.About import AboutUI
         ui = AboutUI()
         ui.exec_()
 
