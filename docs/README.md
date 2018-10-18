@@ -1,7 +1,9 @@
 # CK2 Province Set-Upper
 The Province Set-Upper is a small utility to make map-creating less of a tedious chore.
 
-![screenshot][id]
+![screenshot][screenshot]
+
+### [Download current version][dl_link]
 ___
 
 ### What It Does
@@ -43,4 +45,5 @@ ___
 
 Written by [Araxiel](https://github.com/Araxiel)
 
-[id]: https://raw.githubusercontent.com/Araxiel/CK2-Province_Set-Upper/master/docs/menu_ss.JPG  "Screenshot"
+[screenshot]: https://raw.githubusercontent.com/Araxiel/CK2-Province_Set-Upper/master/docs/menu_ss.JPG  "Screenshot"
+[dl_link]: https://github.com/Araxiel/CK2-Province_Set-Upper/releases/download/1.2.2/ProvinceSetUpper.zip
