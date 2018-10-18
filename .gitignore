@@ -9,6 +9,8 @@ output/
 scratch.py
 scratch*.py
 Source/Databases/
+ProvinceSetUpper.zip
+ProvinceSetUpper.exe
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
