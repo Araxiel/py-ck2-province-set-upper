@@ -1,0 +1,19 @@
+------------------------------
+----ProvinceSetUpper-1.2.2----
+------------------------------
+
+	By Araxiel
+
+GitHub: https://github.com/Araxiel/CK2-Province_Set-Upper
+
+1.0.0
+-	Release
+
+1.2.0
+-	Adds flags
+-	Whitespaces to underscores
+-	Adds Complete Notice
+
+1.2.2
+-	Improved randomised flags algorithm
+-	Basic adjectives
