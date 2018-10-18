@@ -129,16 +129,39 @@ class province():
                         file.write("b_" + province_dict_instance.lower().replace(" ", "_") + ";"+province_dict_instance+";"+province_dict_instance+";"+province_dict_instance+";;"+province_dict_instance+";;;;;;;;;\n")
                         num += 1
 
-        def random_flag(province_dict):
-            import shutil
-            import os
-            import random
-            flag_file_name = "c_" + province_dict.get("county").lower().replace(" ", "_") + ".tga"
-            flag_list = os.listdir("flags")
-            rel_path = "Output\\gfx\\flags\\"
-            rel_file_path = rel_path + flag_file_name
-            os.makedirs(os.path.dirname(rel_file_path), exist_ok=True)
-            shutil.copyfile("flags\\" + random.choice(flag_list), rel_file_path)
+        class flags():
+
+            def shuffle_flag_list():
+                import os
+                import random
+                flag_list_original = os.listdir("Flags")
+                global flag_list_current
+                flag_list_current = flag_list_original.copy()
+                random.shuffle(flag_list_current)
+                global current_flag_number
+                current_flag_number = 0
+
+            def select_flag():
+                global current_flag_number
+                global flag_list_current
+                if current_flag_number < len(flag_list_current):
+                    current_flag = flag_list_current[current_flag_number]
+                    current_flag_number += 1
+                    return current_flag
+                else:
+                    province.write.flags.shuffle_flag_list()
+                    current_flag = province.write.flags.select_flag()
+                    return current_flag
+
+            def assign_flag(province_dict):
+                import shutil
+                import os
+                flag_file_name = "c_" + province_dict.get("county").lower().replace(" ", "_") + ".tga"
+                rel_path = "Output\\gfx\\flags\\"
+                rel_file_path = rel_path + flag_file_name
+                os.makedirs(os.path.dirname(rel_file_path), exist_ok=True)
+                current_flag = province.write.flags.select_flag()
+                shutil.copyfile("flags\\" + current_flag, rel_file_path)
 
         def underscore_name(object_name) -> object:
             return object_name.replace(" ", "_").lower()
@@ -178,6 +201,7 @@ class execute():
         province.write.common.init_province_set_up()
         province.write.common.init_landed_titles()
         province.write.loc.init_loc()
+        province.write.flags.shuffle_flag_list()
         rgb_basis_tuple = tuple((255, 102, 0))
         spreadsheet = open(fileName, "r")
         current_id = startID
@@ -189,5 +213,5 @@ class execute():
             province.write.common.province_set_up(province_dict, current_id, terrain)
             province.write.common.landed_titles(province_dict,rgb_basis_tuple)
             province.write.loc.locs(province_dict,current_id)
-            province.write.random_flag(province_dict)
+            province.write.flags.assign_flag(province_dict)
             current_id += 1
