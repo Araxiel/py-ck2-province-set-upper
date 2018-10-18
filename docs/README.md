@@ -4,7 +4,7 @@ The Province Set-Upper is a small utility to make map-creating less of a tedious
 ![screenshot][id]
 ___
 
-### What it does
+### What It Does
 Just feed it a list of names of counties with their baronies, and the tool will...
 - Let you chose the ID, allowing piecemeal map generation at whatever pace you want, with as many provinces you want to be taken care of at a time.
 - Create a `common\province_setup\00_province_setup.txt` file, with `max_settlements` having the proper value automatically assigned.
@@ -33,7 +33,7 @@ This is a super leightweight little tool I wrote for myself using Python. It's n
 
 It's use lies somewhere between doing everything manually, and something like CK2's StoryGen.
 
-Planned:
+#### Planned:
   * Random Dynasty generator
   * Random History generator
   * For more [see `enhancement` label](https://github.com/Araxiel/CK2-Province_Set-Upper/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
