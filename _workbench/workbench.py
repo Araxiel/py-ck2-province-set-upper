@@ -15,6 +15,18 @@ class province():
                 num += 1
             return province_dict;
 
+        class flags():
+
+            def shuffle_flag_list():
+                import os
+                import random
+                flag_list_original = os.listdir("Flags")
+                global flag_list_current
+                flag_list_current = flag_list_original.copy()
+                random.shuffle(flag_list_current)
+                global current_flag_number
+                current_flag_number = 0
+
     class write():
 
         class history():
@@ -137,16 +149,6 @@ class province():
 
         class flags():
 
-            def shuffle_flag_list():
-                import os
-                import random
-                flag_list_original = os.listdir("Flags")
-                global flag_list_current
-                flag_list_current = flag_list_original.copy()
-                random.shuffle(flag_list_current)
-                global current_flag_number
-                current_flag_number = 0
-
             def select_flag():
                 global current_flag_number
                 global flag_list_current
@@ -155,7 +157,7 @@ class province():
                     current_flag_number += 1
                     return current_flag
                 else:
-                    province.write.flags.shuffle_flag_list()
+                    province.read.flags.shuffle_flag_list()
                     current_flag = province.write.flags.select_flag()
                     return current_flag
 
@@ -207,7 +209,7 @@ class execute():
         province.write.common.init_province_set_up()
         province.write.common.init_landed_titles()
         province.write.loc.init_loc()
-        province.write.flags.shuffle_flag_list()
+        province.read.flags.shuffle_flag_list()
         rgb_basis_tuple = tuple((255, 102, 0))
         spreadsheet = open(fileName, "r")
         current_id = startID
