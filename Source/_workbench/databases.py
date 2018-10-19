@@ -37,6 +37,7 @@ class geodata():
     def smallest_child(towns):
         import geocoder
         import random
+        import workbench
         global geonames_username
         if towns:
             municipality = random.choice(towns)
@@ -52,5 +53,20 @@ class geodata():
         else:
             return towns
 
-print(geodata.smallest_child(geodata.get_towns("Canada")))
-print(geodata.smallest_child(geodata.get_towns("Switzerland")))
+    def random_replacer(entry_list,country):
+        import workbench
+        province_elements = workbench.province.read.dictionary_creation(entry_list)
+        for value in province_elements:
+            if province_elements[value] not in "!R":
+                pass
+            else:
+                entry = geodata.smallest_child(geodata.get_towns(country))
+                entry = workbench.utilities.remove_bracket(entry)
+                province_elements[value] = str(entry)
+        return province_elements
+
+
+debug_list_string = "Miskatonic;Arkhem;Salem;Ipswich;!R;!R"
+country = 'United Kingdom'
+
+print(geodata.random_replacer(debug_list_string,country))
