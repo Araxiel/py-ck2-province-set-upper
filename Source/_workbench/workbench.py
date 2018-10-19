@@ -3,6 +3,9 @@ class province():
         def dictionary_creation(province_line):
             "Takes one line and turns it into a dictionary"
             province_elements = province_line.split(';')
+            province_elements.remove('\n')
+            province_elements = [x for x in province_elements if x]
+            #print(province_elements)
             province_dict = dict(
                 county = province_elements[0],
                 barony_1 = province_elements[1],
