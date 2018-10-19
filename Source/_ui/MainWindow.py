@@ -6,7 +6,6 @@ Module implementing MainWindow.
 
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QMainWindow,  QFileDialog,  QMessageBox
-import webbrowser
 
 from .Ui_MainWindow import Ui_MainWindow
 
@@ -148,6 +147,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_actionHelp_triggered(self):
+        import webbrowser
         webbrowser.open('https://goo.gl/RDSgwA')  # Go to example.com
     
     @pyqtSlot()

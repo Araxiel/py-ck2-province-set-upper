@@ -266,4 +266,5 @@ class execute():
             province.write.common.landed_titles(province_dict,rgb_basis_tuple)
             province.write.loc.locs(province_dict,current_id)
             province.write.flags.assign_flag(province_dict)
+            print("Done: "+province_dict.get("county"))
             current_id += 1
