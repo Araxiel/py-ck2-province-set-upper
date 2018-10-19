@@ -6,7 +6,6 @@ Module implementing MainWindow.
 
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QMainWindow,  QFileDialog,  QMessageBox
-import webbrowser
 
 from .Ui_MainWindow import Ui_MainWindow
 
@@ -148,6 +147,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_actionHelp_triggered(self):
+        import webbrowser
         webbrowser.open('https://goo.gl/RDSgwA')  # Go to example.com
     
     @pyqtSlot()
@@ -165,6 +165,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_pushButton_write_pressed(self):
+        import random
         """
         Write files
         """
@@ -182,4 +183,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print(terrain)
             print(rgb_basis)
             workbench.execute.write(fileName[0],startID,culture,religion,is_tribal,terrain,rgb_basis)
-            QMessageBox.information(self, "Complete", "Complete\n\nCheck the Output folder")
+            deus_vult_mode = random.randrange(0,15)
+            if deus_vult_mode < 2:
+                import webbrowser
+                print("DEUS VULT INFIDEL")
+                for x in range(10):
+                    print("DEUS VULT DEUS VULT DEUS VULT")
+                webbrowser.open('https://my.mixtape.moe/bguyho.webm')
+                for x in range(4):
+                    QMessageBox.information(self, "DEUS VULT INFIDEL",
+                                            "DEUS VULT DEUS VULT DEUS VULT\nDEUS VULT DEUS VULT DEUS VULT\nDEUS VULT DEUS VULT DEUS VULT\n")
+            else:
+                QMessageBox.information(self, "Complete", "Complete\n\nCheck the Output folder")
