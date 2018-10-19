@@ -1,3 +1,18 @@
+# IDE Development
+*.e4q
+*.e6t
+*.e4p
+.idea/
+.eric6project/
+output/
+*.lnk
+scratch.py
+scratch*.py
+Source/Databases/**
+ProvinceSetUpper.zip
+ProvinceSetUpper.exe
+_building/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
