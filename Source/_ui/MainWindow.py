@@ -168,6 +168,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """
         Write files
         """
+        from _workbench import workbench
         global rgb_basis
         rgb_basis = list((rgb_basis_r, rgb_basis_g, rgb_basis_b))
         if fileName is None:

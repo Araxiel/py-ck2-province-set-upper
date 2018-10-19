@@ -20,7 +20,7 @@ class province():
             def shuffle_flag_list():
                 import os
                 import random
-                flag_list_original = os.listdir("Flags")
+                flag_list_original = os.listdir("Databases\\Flags")
                 global flag_list_current
                 flag_list_current = flag_list_original.copy()
                 random.shuffle(flag_list_current)
@@ -174,7 +174,7 @@ class province():
         def underscore_name(object_name) -> object:
             return object_name.replace(" ", "_").lower()
 
-class randomise():
+class utilities():
     def randomise_color(value = 100):
         import random
         if value < 50:
@@ -196,11 +196,11 @@ class randomise():
         return value
     def randomise_colors(rgb_basis):
         r_base = rgb_basis[0]
-        r = randomise.randomise_color(r_base)
+        r = utilities.randomise_color(r_base)
         g_base = rgb_basis[1]
-        g = randomise.randomise_color(g_base)
+        g = utilities.randomise_color(g_base)
         b_base = rgb_basis[2]
-        b = randomise.randomise_color(b_base)
+        b = utilities.randomise_color(b_base)
         rgb_value = tuple((r,g,b))
         return rgb_value
         
