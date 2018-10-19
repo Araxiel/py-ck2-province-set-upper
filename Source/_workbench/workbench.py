@@ -9,8 +9,6 @@ class province():
             )
             num = 2
             for x in province_elements[2:]:
-                if x == "x":
-                    break
                 province_dict["barony_" + str(num)] = province_elements[num]
                 num += 1
             return province_dict;
