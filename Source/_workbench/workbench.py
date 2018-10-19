@@ -142,7 +142,43 @@ class province():
                         num += 1
 
             def adjective(name):
-                adj_final = name + "n"
+                import random
+                if name[-2:] in "ia" or name[-2:] in "um":
+                    adj_final = name[:-2]
+                    if adj_final[-1:] is "l" or adj_final[-1:] is "i":
+                        adj_final = adj_final + "an"
+                elif name[-2:] in "en" or name[-1:] in "t" or name[-1:] in "n":
+                    adj_final = name + "er"
+                elif name[-1:] in "i":
+                    endings = tuple(("n", "an"))
+                    adj_final = name + random.choice(endings)
+                elif name[-1:] in "o":
+                    endings = "nian"
+                    adj_final = name + endings
+                elif name[-1:] in "k" or name[-1:] in "s" or name[-1:] in "c":
+                    endings = "ian"
+                    adj_final = name + endings
+                elif name[-2:] in "?a" and not (name[-2:] in "ia"):
+                    endings = tuple(("ni", "nian", "n", "ese"))
+                    adj_final = name + random.choice(endings)
+                elif name[-1:] in "e":
+                    endings = tuple(("ch", "an"))
+                    select_ending = random.choice(endings)
+                    if select_ending in "ch":
+                        name = name[:-2]
+                    else:
+                        pass
+                    adj_final = name + select_ending
+                elif name[-1:] in "y":
+                    endings = tuple(("ssios", "ian", "ese"))
+                    select_ending = random.choice(endings)
+                    if select_ending in "ese":
+                        name = name[:-1]
+                    else:
+                        pass
+                    adj_final = name + select_ending
+                else:
+                    adj_final = name
                 return adj_final
 
         class flags():
