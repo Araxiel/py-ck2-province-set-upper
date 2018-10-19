@@ -98,7 +98,7 @@ class province():
                 open(rel_path, "w")
 
             def landed_titles(province_dict, rgb_basis = (255, 102, 0) ):
-                rgb_value = randomise.randomise_colors(rgb_basis)
+                rgb_value = utilities.randomise_colors(rgb_basis)
                 rel_path = "Output\\common\\landed_titles\\90_landed_titles.txt"
                 import os
                 os.makedirs(os.path.dirname(rel_path), exist_ok=True)
@@ -169,7 +169,8 @@ class province():
                 rel_file_path = rel_path + flag_file_name
                 os.makedirs(os.path.dirname(rel_file_path), exist_ok=True)
                 current_flag = province.write.flags.select_flag()
-                shutil.copyfile("flags\\" + current_flag, rel_file_path)
+                copy_file_location = ("Databases\\Flags\\" + current_flag)
+                shutil.copyfile(copy_file_location, rel_file_path)
 
         def underscore_name(object_name) -> object:
             return object_name.replace(" ", "_").lower()
@@ -203,7 +204,13 @@ class utilities():
         b = utilities.randomise_color(b_base)
         rgb_value = tuple((r,g,b))
         return rgb_value
-        
+
+    def remove_bracket(string):
+        string = str(string)
+        string = string.replace("[", "")
+        string = string.replace("]", "")
+        return string
+
 class execute():
     def write(fileName, startID=6, culture="Norse", religion="Catholic",  is_tribal=False,  terrain="Plains",  rgb_basis=(255, 102, 0)):
         province.write.common.init_province_set_up()
