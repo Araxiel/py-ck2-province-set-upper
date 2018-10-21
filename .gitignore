@@ -12,6 +12,8 @@ Source/Databases/**
 ProvinceSetUpper.zip
 ProvinceSetUpper.exe
 _building/*
+*.autosave
+config.ini
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

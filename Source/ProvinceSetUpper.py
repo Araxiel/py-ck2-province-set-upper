@@ -6,6 +6,8 @@ logging.basicConfig(filename='setupper.log', filemode='w', format='%(levelname)s
 if __name__ == '__main__':
     import sys
     logging.info('Set-Upper Started')
+    from _workbench import configs
+    configs_obj = configs.configs()
     app = QtWidgets.QApplication(sys.argv)
     ui = MainWindow()
     ui.show()
