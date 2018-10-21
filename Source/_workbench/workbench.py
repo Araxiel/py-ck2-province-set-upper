@@ -27,6 +27,8 @@ class province():
                 random.shuffle(flag_list_current)
                 global current_flag_number
                 current_flag_number = 0
+                from _workbench import auxiliary
+                auxiliary.log.logging("Flag Order " + str(flag_list_current))
 
     class write():
 
@@ -54,6 +56,8 @@ class province():
                     if terrain is not None:
                         file.write("terrain = " + terrain + "\n")
                     file.write("\n# History\n")
+                from _workbench import auxiliary
+                auxiliary.log.logging("Province History For: " + str(rel_path))
 
             def comment_overflow_baronies(province_dict,file,is_tribal=False):
                 if ( is_tribal == True ):
@@ -81,6 +85,8 @@ class province():
                 import os
                 os.makedirs(os.path.dirname(rel_path), exist_ok=True)
                 open(rel_path, "w")
+                from _workbench import auxiliary
+                auxiliary.log.logging("Init Province Setup: " + str(rel_path))
 
             def province_set_up(province_dict, current_id=6, terrain="plains"):
                 rel_path = "Output\\common\\province_setup\\90_province_setup.txt"
@@ -97,6 +103,8 @@ class province():
                 import os
                 os.makedirs(os.path.dirname(rel_path), exist_ok=True)
                 open(rel_path, "w")
+                from _workbench import auxiliary
+                auxiliary.log.logging("Init Landed Titles: " + str(rel_path))
 
             def landed_titles(province_dict, rgb_basis = (255, 102, 0) ):
                 rgb_value = utilities.randomise_colors(rgb_basis)
@@ -125,6 +133,8 @@ class province():
                 open(rel_path, "w")
                 with open(rel_path, "a") as file:
                     file.write("#CODE;ENGLISH;FRENCH;GERMAN;;SPANISH;;;;;;;;;x\n")
+                from _workbench import auxiliary
+                auxiliary.log.logging("Init localisation: " + str(rel_path))
 
             def locs(province_dict,current_id):
                 rel_path = "Output\\localisation\\90_province_setup.csv"
@@ -143,6 +153,8 @@ class province():
                             break
                         file.write("b_" + province_dict_instance.lower().replace(" ", "_") + ";"+province_dict_instance+";"+province_dict_instance+";"+province_dict_instance+";;"+province_dict_instance+";;;;;;;;;\n")
                         num += 1
+                from _workbench import auxiliary
+                auxiliary.log.logging("Localisation for: " + str(county_name))
 
             def adjective(name):
                 import random
@@ -213,6 +225,7 @@ class province():
             return object_name.replace(" ", "_").lower()
 
 class utilities():
+    from _workbench import auxiliary
     def randomise_color(value = 100):
         import random
         if value < 50:
@@ -250,6 +263,7 @@ class utilities():
 
 class execute():
     def write(fileName, startID=6, culture="Norse", religion="Catholic",  is_tribal=False,  terrain="Plains",  rgb_basis=(255, 102, 0)):
+        from _workbench import auxiliary
         province.write.common.init_province_set_up()
         province.write.common.init_landed_titles()
         province.write.loc.init_loc()
@@ -260,11 +274,12 @@ class execute():
         provinces = spreadsheet.readlines()
         for x in provinces:
             province_dict = province.read.dictionary_creation(x)
+            auxiliary.log.logging("Started with " + str(x[:-2]))
             province.write.history.history_province(province_dict, current_id, culture.lower(), religion.lower(), is_tribal, terrain.lower())
             province.write.history.history_titles(province_dict)
             province.write.common.province_set_up(province_dict, current_id, terrain)
             province.write.common.landed_titles(province_dict,rgb_basis_tuple)
             province.write.loc.locs(province_dict,current_id)
             province.write.flags.assign_flag(province_dict)
-            print("Done: "+province_dict.get("county"))
+            auxiliary.log.logging(str("Finished with "+ str(province_dict)))
             current_id += 1

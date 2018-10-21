@@ -136,6 +136,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_actionQuit_triggered(self):
+        auxiliary.log.logging("EXIT")
         self.close()
     
     @pyqtSlot()
@@ -162,6 +163,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             "",
             self.tr("*.csv;;*"),
             self.tr(".csv"))
+        from _workbench import auxiliary
+        auxiliary.log.logging("Loaded File: "+ str(fileName))
 
     @pyqtSlot()
     def on_pushButton_write_pressed(self):
@@ -170,18 +173,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         Write files
         """
         from _workbench import workbench
+        from _workbench import auxiliary
         global rgb_basis
+        auxiliary.log.logging("Started Writing")
         rgb_basis = list((rgb_basis_r, rgb_basis_g, rgb_basis_b))
         if fileName is None:
             QMessageBox.information(self, "Error", "No File Loaded")
             return
         else:
-            print(startID)
-            print(culture)
-            print(religion)
-            print(is_tribal)
-            print(terrain)
-            print(rgb_basis)
+            auxiliary.log.logging("StartID: " + str(startID) + " - Culture: " + culture + " - Religion: " + religion + " - Terrain: " + terrain + " - is_Tribal: " + str(is_tribal) + " - rgb_base: " + str(rgb_basis))
             workbench.execute.write(fileName[0],startID,culture,religion,is_tribal,terrain,rgb_basis)
             deus_vult_mode = random.randrange(0,15)
             if deus_vult_mode < 2:
@@ -190,8 +190,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 for x in range(10):
                     print("DEUS VULT DEUS VULT DEUS VULT")
                 webbrowser.open('https://my.mixtape.moe/bguyho.webm')
-                for x in range(4):
+                auxiliary.log.logging("DEUS VULT")
                     QMessageBox.information(self, "DEUS VULT INFIDEL",
                                             "DEUS VULT DEUS VULT DEUS VULT\nDEUS VULT DEUS VULT DEUS VULT\nDEUS VULT DEUS VULT DEUS VULT\n")
             else:
                 QMessageBox.information(self, "Complete", "Complete\n\nCheck the Output folder")
+            auxiliary.log.logging("COMPLETE")
+            auxiliary.log.logging("-------------------------------------------------------------------------------------------------------------------------------------------------")
