@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMainWindow,  QFileDialog,  QMessageBox
 
 from .Ui_MainWindow import Ui_MainWindow
 
-from _workbench import workbench
+import logging
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     """
@@ -136,11 +136,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_actionQuit_triggered(self):
-        auxiliary.log.logging("EXIT")
+        logging.info('Quit')
         self.close()
     
     @pyqtSlot()
     def on_actionAbout_triggered(self):
+        logging.info('About')
         from _ui.About import AboutUI
         ui = AboutUI()
         ui.exec_()
@@ -148,6 +149,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_actionHelp_triggered(self):
+        logging.info('Help')
         import webbrowser
         webbrowser.open('https://goo.gl/RDSgwA')  # Go to example.com
     
@@ -163,37 +165,36 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             "",
             self.tr("*.csv;;*"),
             self.tr(".csv"))
-        from _workbench import auxiliary
-        auxiliary.log.logging("Loaded File: "+ str(fileName))
+        logging.info('Loaded File %s',str(fileName))
 
     @pyqtSlot()
     def on_pushButton_write_pressed(self):
-        import random
         """
         Write files
         """
         from _workbench import workbench
-        from _workbench import auxiliary
+        import random
         global rgb_basis
-        auxiliary.log.logging("Started Writing")
+        logging.info('Started Writing')
         rgb_basis = list((rgb_basis_r, rgb_basis_g, rgb_basis_b))
         if fileName is None:
             QMessageBox.information(self, "Error", "No File Loaded")
             return
         else:
-            auxiliary.log.logging("StartID: " + str(startID) + " - Culture: " + culture + " - Religion: " + religion + " - Terrain: " + terrain + " - is_Tribal: " + str(is_tribal) + " - rgb_base: " + str(rgb_basis))
+            logging.info('Parameters: startID=%d Culture=%s Religion=%s Terrain=%s is_tribal=%s rgb_base=%s', startID, culture, religion, terrain, str(is_tribal), rgb_basis)
             workbench.execute.write(fileName[0],startID,culture,religion,is_tribal,terrain,rgb_basis)
             deus_vult_mode = random.randrange(0,15)
             if deus_vult_mode < 2:
-                import webbrowser
+                logging.info('DEUS VULT')
                 print("DEUS VULT INFIDEL")
-                for x in range(10):
+                for x in range(3):
                     print("DEUS VULT DEUS VULT DEUS VULT")
-                webbrowser.open('https://my.mixtape.moe/bguyho.webm')
-                auxiliary.log.logging("DEUS VULT")
+                import webbrowser
+                webbrowser.open('https://webmshare.com/play/ZQDQw')
+                for x in range(3):
                     QMessageBox.information(self, "DEUS VULT INFIDEL",
                                             "DEUS VULT DEUS VULT DEUS VULT\nDEUS VULT DEUS VULT DEUS VULT\nDEUS VULT DEUS VULT DEUS VULT\n")
             else:
                 QMessageBox.information(self, "Complete", "Complete\n\nCheck the Output folder")
-            auxiliary.log.logging("COMPLETE")
-            auxiliary.log.logging("-------------------------------------------------------------------------------------------------------------------------------------------------")
+            logging.info('Complete')
+            logging.info("-------------------------------------------------------------------------------------------------------------------------------------------------")

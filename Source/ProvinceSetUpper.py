@@ -1,10 +1,11 @@
 from PyQt5 import QtWidgets
 from _ui.MainWindow import MainWindow
-from _workbench import auxiliary
+import logging
+logging.basicConfig(filename='setupper.log', filemode='w', format='%(levelname)s %(asctime)s: [ %(message)s ]', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
 
 if __name__ == '__main__':
     import sys
-    auxiliary.log.logging_init()
+    logging.info('Set-Upper Started')
     app = QtWidgets.QApplication(sys.argv)
     ui = MainWindow()
     ui.show()
