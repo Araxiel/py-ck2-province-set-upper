@@ -80,7 +80,10 @@ class province():
         class common():
 
             def init_province_set_up():
-                rel_path = "Output\\common\\province_setup\\90_province_setup.txt"
+                from _workbench import configs
+                config_obj = configs.configs()
+                last_file_id = config_obj.read_config('Last_Setup', 'Last_File_ID')
+                rel_path = "Output\\common\\province_setup\\%(number)s_province_setup.txt" %{'number':last_file_id}
                 import os
                 os.makedirs(os.path.dirname(rel_path), exist_ok=True)
                 open(rel_path, "w")
@@ -88,7 +91,10 @@ class province():
                 logging.info("Init province-setup %s", rel_path)
 
             def province_set_up(province_dict, current_id=6, terrain="plains"):
-                rel_path = "Output\\common\\province_setup\\90_province_setup.txt"
+                from _workbench import configs
+                config_obj = configs.configs()
+                last_file_id = config_obj.read_config('Last_Setup', 'Last_File_ID')
+                rel_path = "Output\\common\\province_setup\\%(number)s_province_setup.txt" %{'number':last_file_id}
                 import os
                 os.makedirs(os.path.dirname(rel_path), exist_ok=True)
                 with open(rel_path, "a") as file:
@@ -100,7 +106,10 @@ class province():
                 logging.info("Province-Setup: c_%s", province_dict.get("county").lower().replace(" ", "_"))
 
             def init_landed_titles():
-                rel_path = "Output\\common\\landed_titles\\90_landed_titles.txt"
+                from _workbench import configs
+                config_obj = configs.configs()
+                last_file_id = config_obj.read_config('Last_Setup', 'Last_File_ID')
+                rel_path = "Output\\common\\landed_titles\\%(number)s_landed_titles.txt" %{'number':last_file_id}
                 import os
                 os.makedirs(os.path.dirname(rel_path), exist_ok=True)
                 open(rel_path, "w")
@@ -108,8 +117,10 @@ class province():
                 logging.info("Init landed titles %s", rel_path)
 
             def landed_titles(province_dict, rgb_basis = (255, 102, 0)):
-                import logging
-                rel_path = "Output\\common\\landed_titles\\90_landed_titles.txt"
+                from _workbench import configs
+                config_obj = configs.configs()
+                last_file_id = config_obj.read_config('Last_Setup', 'Last_File_ID')
+                rel_path = "Output\\common\\landed_titles\\%(number)s_landed_titles.txt" %{'number':last_file_id}
                 rgb_value = utilities.randomise_colors(rgb_basis)
                 import os
                 os.makedirs(os.path.dirname(rel_path), exist_ok=True)
@@ -131,7 +142,10 @@ class province():
         class loc():
 
             def init_loc():
-                rel_path = "Output\\localisation\\90_province_setup.csv"
+                from _workbench import configs
+                config_obj = configs.configs()
+                last_file_id = config_obj.read_config('Last_Setup', 'Last_File_ID')
+                rel_path = "Output\\localisation\\%(number)s_province_setup.csv" %{'number':last_file_id}
                 import os
                 os.makedirs(os.path.dirname(rel_path), exist_ok=True)
                 open(rel_path, "w")
@@ -141,7 +155,10 @@ class province():
                 logging.info("Init localisation %s", rel_path)
 
             def locs(province_dict,current_id):
-                rel_path = "Output\\localisation\\90_province_setup.csv"
+                from _workbench import configs
+                config_obj = configs.configs()
+                last_file_id = config_obj.read_config('Last_Setup', 'Last_File_ID')
+                rel_path = "Output\\localisation\\%(number)s_province_setup.csv" %{'number':last_file_id}
                 import os
                 os.makedirs(os.path.dirname(rel_path), exist_ok=True)
                 with open(rel_path, "a") as file:
