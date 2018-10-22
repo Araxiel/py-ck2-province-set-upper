@@ -1,3 +1,5 @@
+## this code is an absolute mess, please don't even look at it
+
 class province():
     class read():
         def dictionary_creation(province_line):
