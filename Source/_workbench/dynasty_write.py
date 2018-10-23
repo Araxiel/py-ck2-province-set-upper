@@ -42,3 +42,29 @@ def characters_file_writing(char_dictionary):
                 char_dictionary[char].death[0], char_dictionary[char].death[1], char_dictionary[char].death[2]))
             file.write("    }\n")
             file.write("}\n\n")
+
+
+def title_holder_file_set_up():
+    rel_path = "Output\\history\\characters\\__title_holder_placeholder.txt"
+    import os
+    os.makedirs(os.path.dirname(rel_path), exist_ok=True)
+    open(rel_path, "w+")
+
+
+def title_holder_file_writing(char_dictionary):
+    rel_path = "Output\\history\\characters\\__title_holder_placeholder.txt"
+    import os
+    os.makedirs(os.path.dirname(rel_path), exist_ok=True)
+    with open(rel_path, "a") as file:
+        file.write("# Generated\n")
+        for char in char_dictionary:
+            if char_dictionary[char].title_holder is True:
+                if char_dictionary[char].founder is True:
+                    birth_date = char_dictionary[char].birth
+                    file.write("%s.%s.%s = {\n" % (birth_date[0], birth_date[1], birth_date[2]))
+                else:
+                    birth_date = char_dictionary[char].father.death
+                    file.write("%s.%s.%s = {\n" % (birth_date[0], birth_date[1], birth_date[2]))
+                file.write("    holder = %i     # %s %s\n" % (char_dictionary[char].game_id, char_dictionary[char].name, char_dictionary[char].dynasty_name))
+                file.write("}\n\n")
+            pass

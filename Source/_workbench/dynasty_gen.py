@@ -21,7 +21,7 @@ class Character(object):
         self.death = daterizer(death_year)
 
     def __init__(self, name=False, dynasty=756, culture='saxon', religion='catholic', birth=(1025, 1, 2),
-                 death=(1066, 10, 14), female=False, game_id=60000, essential=True, main_heir=None):
+                 death=(1066, 10, 14), female=False, game_id=60000, essential=True, main_heir=None, title_holder = False, founder=False, dynasty_name="Normandy"):
         if birth is None:
             birth = [1025, 1, 2]
         if name is False:
@@ -29,6 +29,7 @@ class Character(object):
         else:
             self.name = name
         self.dynasty = dynasty
+        self.dynasty_name = dynasty_name
         self.birth = birth
         self.death = death
         self.culture = culture
@@ -44,24 +45,30 @@ class Character(object):
         self.generate_death(essential=essential)
         self.main_heir = main_heir
         self.last_child_date = None
+        self.title_holder = title_holder
+        self.founder = founder
 
     def generate_child(self, female=False, essential=False):
+        # This si becoming huge spaghetti code
         import random
+        age_death = get_age_to_death(self.birth, self.death)
+        if age_death < 17:
+            age_death = random.randint(18, 20)
+        #rint("age death: " + str(age_death))
         if not self.children_list:
-            print("No Kids")
-            has_first_child_age = random.randint(17, get_age_to_death(self.birth, self.death))
+            #print("No Kids")
+            has_first_child_age = random.randint(17, age_death)
+            #print("has_first_child_age:" + str(has_first_child_age))
             child_birth_date = daterizer(self.birth[0] + has_first_child_age)
         else:
-            print("Already has Kids")
-            var = random.randint(4, get_age_to_death(self.last_child_date, self.death))
+            #print("Already has Kids")
+            var = random.randint(4, age_death+4)
+            #print("var: " + str(var))
             child_birth_date = daterizer(self.last_child_date[0] + var)
         child_id = assign_id('guys')
         global character_list
-        character_list[child_id] = Character(essential=essential)
-        character_list[child_id].birth = child_birth_date
+        character_list[child_id] = Character(essential=essential,birth=child_birth_date,culture=self.culture,religion=self.religion, dynasty_name=self.dynasty_name)
         character_list[child_id].father = self
-        character_list[child_id].culture = self.culture
-        character_list[child_id].religion = self.religion
         if len(self.spouses_list):
             for index, item in enumerate(self.spouses_marry_dates_list):
                 if item[0] < child_birth_date[0]:
@@ -155,23 +162,25 @@ def get_random_name(female=False):
     return name
 
 
-def generate_character(name=False, dynasty=756, culture='saxon', religion='catholic', birth=(1025, 1, 2), death=None,
-                female=False, game_id=60000, essential=True, founder=False, caller=None):
+def generate_character(caller, name=False, dynasty=756, culture='saxon', religion='catholic', birth=(1025, 1, 2), death=None,
+                female=False, game_id=60000, essential=True, title_holder = False, dynasty_name="Normandy"):
     if death is None:
         death = starting_date
     import random
-    protagonist = caller
-    if founder is True:
+    protagonist = caller    # makes sure that whoever is the caller get's protagonist, if no Character is created.
+    if caller is 'founder':
         char_number = assign_id('guys')
         character_list[char_number] = Character(name=name, dynasty=dynasty, culture=culture, religion=religion, birth=birth,
-                                                death=death, female=female, game_id=game_id, essential=essential)
+                                                death=death, female=female, game_id=game_id, essential=essential, title_holder=title_holder, dynasty_name=dynasty_name)
         protagonist = character_list[char_number]
+        protagonist.founder = True
     global last_char
     last_char = protagonist.generate_wife()
     last_char = protagonist.generate_child(essential=True)
     protagonist.main_heir = last_char
+    protagonist.title_holder = True
     #TODO amount of potential kids somehow tied to death-date
-    boys_amount = random.randint(0, 1)
+    boys_amount = random.randint(0, 2)
     for x in range(0, boys_amount):
         last_char = protagonist.generate_child()
     random_pick = random.choice(protagonist.children_list)
@@ -180,7 +189,6 @@ def generate_character(name=False, dynasty=756, culture='saxon', religion='catho
     girls_amount = random.choice(girls_amount_weight)
     for x in range(0, girls_amount):
         last_char = protagonist.generate_child(female=True)
-    last_char = protagonist
     return protagonist
 
 
@@ -194,11 +202,11 @@ name_ids = {
 }
 character_list = {}
 
-founder = generate_character(game_id=global_game_id, birth=wayback(starting_date[0], 100),founder=True)
-print(len(founder.children_list))
-last_char = generate_character(caller=founder.main_heir)
-print(last_char.game_id)
-print(len(last_char.children_list))
+last_char = generate_character(caller='founder',game_id=global_game_id, birth=wayback(starting_date[0], 100),title_holder=True,dynasty_name="Normandy")
+for x in range(1, 5):
+    last_char = generate_character(caller=last_char.main_heir, title_holder=True)
 
 dynasty_write.characters_file_set_up()
 dynasty_write.characters_file_writing(character_list)
+dynasty_write.title_holder_file_set_up()
+dynasty_write.title_holder_file_writing(character_list)
