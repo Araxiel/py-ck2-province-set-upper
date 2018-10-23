@@ -226,6 +226,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             logging.info('Parameters: startID=%d Culture=%s Religion=%s Terrain=%s is_tribal=%s rgb_base=%s', startID, culture, religion, terrain, str(is_tribal), rgb_basis)
             workbench.execute.write(fileName[0],startID,culture,religion,is_tribal,terrain,rgb_basis)
+            logging.info('----- Exited Writing - ')
             deus_vult_mode = random.randrange(0,15)
             if deus_vult_mode < 2:
                 logging.info('DEUS VULT')
@@ -240,6 +241,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             else:
                 QMessageBox.information(self, "Complete", "Complete\n\nCheck the Output folder")
             from _workbench import configs
+            logging.info('Writing Config')
             config_obj = configs.configs()
             last_file_id = config_obj.read_config('Last_Setup','Last_File_ID')
             last_file_id_int: int = int(last_file_id)
@@ -252,5 +254,5 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             config_obj.edit_config('Last_Setup','terrain',terrain)
             config_obj.edit_config('Last_Setup','is_tribal',str(is_tribal))
             config_obj.edit_config('Last_Setup','rgb_basis',str(rgb_basis))
-            logging.info('Complete')
+            logging.info('EXECUTION COMPLETE')
             logging.info("-------------------------------------------------------------------------------------------------------------------------------------------------")

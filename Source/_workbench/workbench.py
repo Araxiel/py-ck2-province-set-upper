@@ -251,16 +251,15 @@ class utilities():
     def randomise_color(value = 100):
         import random
         if value < 50:
-            rng_up_ceiling = 60
+            rng_up_ceiling = 45
         else:
             rng_up_ceiling = 20
         v_up = random.randrange(0, rng_up_ceiling, 1)
         if value > 235:
-            rng_down_ceiling = 60
+            rng_down_ceiling = 45
         else:
             rng_down_ceiling = 20
-        v_down = random.randrange(0, rng_down_ceiling, 1)
-        v_down *= -1
+        v_down = (random.randrange(0, rng_down_ceiling, 1))*-1
         value += v_up + v_down
         if value > 255:
                 value = 255
@@ -291,7 +290,7 @@ class execute():
         province.write.common.init_landed_titles()
         province.write.loc.init_loc()
         province.read.flags.shuffle_flag_list()
-        rgb_basis_tuple = tuple((255, 102, 0))
+        #rgb_basis_tuple = tuple((255, 102, 0))
         spreadsheet = open(fileName, "r")
         current_id = startID
         provinces = spreadsheet.readlines()
@@ -301,8 +300,9 @@ class execute():
             province.write.history.history_province(province_dict, current_id, culture.lower(), religion.lower(), is_tribal, terrain.lower())
             province.write.history.history_titles(province_dict)
             province.write.common.province_set_up(province_dict, current_id, terrain)
-            province.write.common.landed_titles(province_dict,rgb_basis_tuple)
+            province.write.common.landed_titles(province_dict,rgb_basis)
             province.write.loc.locs(province_dict,current_id)
             province.write.flags.assign_flag(province_dict)
-            logging.info("Finished with  %s", province_dict)
             current_id += 1
+            logging.info("Finished with  %s", province_dict)
+        logging.info('----- Finished Writing - ')
