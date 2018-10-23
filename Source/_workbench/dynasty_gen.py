@@ -203,7 +203,8 @@ name_ids = {
 character_list = {}
 
 last_char = generate_character(caller='founder',game_id=global_game_id, birth=wayback(starting_date[0], 100),title_holder=True,dynasty_name="Normandy")
-for x in range(1, 5):
+max_generations = input()
+for x in range(1, generations):
     last_char = generate_character(caller=last_char.main_heir, title_holder=True)
 
 dynasty_write.characters_file_set_up()
