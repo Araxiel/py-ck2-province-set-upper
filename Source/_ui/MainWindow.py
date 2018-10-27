@@ -5,7 +5,7 @@ Module implementing MainWindow.
 """
 
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QMainWindow,  QFileDialog,  QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox
 
 from .Ui_MainWindow import Ui_MainWindow
 
@@ -92,7 +92,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global terrain
         terrain = p0
 
-
     @pyqtSlot(int)
     def on_spinBox_r_valueChanged(self, p0):
         """
@@ -148,8 +147,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(bool)
     def on_checkBox_baronyhistoryfiles_toggled(self, checked):
         """
-        Slot documentation goes here.
-
         @param checked DESCRIPTION
         @type bool
         """

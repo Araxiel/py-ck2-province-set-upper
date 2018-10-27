@@ -201,7 +201,7 @@ class province():
                     file.write("c_"+ county_name.lower().replace(" ", "_")+"_adj;"+county_name_adj+";"+county_name_adj+";"+county_name_adj+";;"+county_name_adj+";;;;;;;;;\n")
                     loc_lines_added = 3
                     num = 1
-                    for x in province_dict:
+                    for each in province_dict:
                         province_dict_instance = province_dict.get("barony_" + str(num))
                         if province_dict_instance is None:
                             break
@@ -327,12 +327,6 @@ class utilities():
         rgb_value = tuple((r,g,b))
         return rgb_value
 
-    def remove_bracket(string):
-        string = str(string)
-        string = string.replace("[", "")
-        string = string.replace("]", "")
-        return string
-
 class execute():
 
     def write(fileName, startID=6, culture="Norse", religion="Catholic",  is_tribal=False,  terrain="Plains",  rgb_basis=(255, 102, 0)):
@@ -358,4 +352,5 @@ class execute():
             province.write.flags.assign_flag(province_dict)
             current_id += 1
             logging.info("Finished with  %s", province_dict)
-        logging.info('----- Finished Writing - ')
+
+        logging.info('-- Finished Writing -- ')
