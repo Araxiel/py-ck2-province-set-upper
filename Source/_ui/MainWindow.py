@@ -11,12 +11,14 @@ from .Ui_MainWindow import Ui_MainWindow
 
 import logging
 
+
 class MainWindow(QMainWindow, Ui_MainWindow):
     """
     Class documentation goes here.
     """
     from _workbench import configs
     config_obj = configs.configs()
+
     global fileName
     fileName = None
     global startID
@@ -57,8 +59,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(str)
     def on_lineEdit_startID_textChanged(self, p0):
         """
-        Slot documentation goes here.
-        
         @param p0 DESCRIPTION
         @type str
         """
@@ -68,8 +68,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(str)
     def on_lineEdit_religion_textChanged(self, p0):
         """
-        Slot documentation goes here.
-        
         @param p0 DESCRIPTION
         @type str
         """
@@ -79,8 +77,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(str)
     def on_lineEdit_culture_textChanged(self, p0):
         """
-        Slot documentation goes here.
-        
         @param p0 DESCRIPTION
         @type str
         """
@@ -90,8 +86,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(str)
     def on_lineEdi_terrain_textChanged(self, p0):
         """
-        Slot documentation goes here.
-        
         @param p0 DESCRIPTION
         @type str
         """
@@ -102,8 +96,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(int)
     def on_spinBox_r_valueChanged(self, p0):
         """
-        Slot documentation goes here.
-
         @param p0 DESCRIPTION
         @type int
         """
@@ -113,8 +105,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(int)
     def on_spinBox_g_valueChanged(self, p0):
         """
-        Slot documentation goes here.
-
         @param p0 DESCRIPTION
         @type int
         """
@@ -124,8 +114,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(int)
     def on_spinBox_b_valueChanged(self, p0):
         """
-        Slot documentation goes here.
-
         @param p0 DESCRIPTION
         @type int
         """
@@ -135,8 +123,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(int)
     def on_spinBox_templedist_valueChanged(self, p0):
         """
-        Slot documentation goes here.
-
         @param p0 DESCRIPTION
         @type int
         """
@@ -145,8 +131,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(bool)
     def on_checkBox_isTribal_toggled(self, checked):
         """
-        Slot documentation goes here.
-
         @param checked DESCRIPTION
         @type bool
         """
@@ -156,8 +140,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot(bool)
     def on_checkBox_flagremoval_toggled(self, checked):
         """
-        Slot documentation goes here.
-
         @param checked DESCRIPTION
         @type bool
         """
@@ -213,7 +195,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @pyqtSlot()
     def on_pushButton_write_pressed(self):
         """
-        Write files
+        Writing everything.
         """
         from _workbench import workbench
         import random

@@ -1,7 +1,12 @@
+# Ugh...this is a complete effing mess and will require a huge cleanup...but already addressed that in #37.
+# Also needs to have the validator run through this; so many errors and problematic code
+
 class province():
     class read():
         def dictionary_creation(province_line):
-            "Takes one line and turns it into a dictionary"
+            """
+            Takes one line and turns it into the current dictionary.
+            """
             province_elements = province_line.split(';')
             province_elements.remove('\n')
             province_elements = [x for x in province_elements if x]
@@ -18,6 +23,9 @@ class province():
         class flags():
 
             def shuffle_flag_list():
+                """
+                Creates a list of all flags in the database and shuffles them.
+                """
                 import os
                 import random
                 flag_list_original = os.listdir("Databases\\Flags")
@@ -34,6 +42,9 @@ class province():
         class history():
 
             def history_province(province_dict, current_id=6, culture = "norse", religion = "catholic", is_tribal = False, terrain = None):
+                """
+                Writes the history/provinces file.
+                """
                 underscored_name = province.write.underscore_name(province_dict.get("county"))
                 history_provinces_filename = str(current_id) + " - " + underscored_name
                 rel_path = "Output\\history\\provinces\\" + history_provinces_filename + ".txt"
@@ -59,6 +70,9 @@ class province():
                 logging.info("Province History written: %s", rel_path)
 
             def comment_overflow_baronies(province_dict,file,is_tribal=False):
+                """
+                Appends the commented-out baronies.
+                """
                 if ( is_tribal == True ):
                     num = 2
                 else:
@@ -80,6 +94,9 @@ class province():
         class common():
 
             def init_province_set_up():
+                """
+                Creates the common/province setup file.
+                """
                 from _workbench import configs
                 config_obj = configs.configs()
                 last_file_id = config_obj.read_config('Last_Setup', 'Last_File_ID')
@@ -91,6 +108,9 @@ class province():
                 logging.info("Init province-setup %s", rel_path)
 
             def province_set_up(province_dict, current_id=6, terrain="plains"):
+                """
+                Writes to the common/province setup file.
+                """
                 from _workbench import configs
                 config_obj = configs.configs()
                 last_file_id = config_obj.read_config('Last_Setup', 'Last_File_ID')
@@ -106,6 +126,9 @@ class province():
                 logging.info("Province-Setup: c_%s", province_dict.get("county").lower().replace(" ", "_"))
 
             def init_landed_titles():
+                """
+                Creates the common/landed titles file.
+                """
                 from _workbench import configs
                 config_obj = configs.configs()
                 last_file_id = config_obj.read_config('Last_Setup', 'Last_File_ID')
@@ -117,6 +140,9 @@ class province():
                 logging.info("Init landed titles %s", rel_path)
 
             def landed_titles(province_dict, rgb_basis = (255, 102, 0)):
+                """
+                Writes to the common/landed titles.
+                """
                 from _workbench import configs
                 config_obj = configs.configs()
                 last_file_id = config_obj.read_config('Last_Setup', 'Last_File_ID')
@@ -142,6 +168,9 @@ class province():
         class loc():
 
             def init_loc():
+                """
+                Writes the localisation file.
+                """
                 from _workbench import configs
                 config_obj = configs.configs()
                 last_file_id = config_obj.read_config('Last_Setup', 'Last_File_ID')
@@ -155,6 +184,9 @@ class province():
                 logging.info("Init localisation %s", rel_path)
 
             def locs(province_dict,current_id):
+                """
+                Populate the localisation file.
+                """
                 from _workbench import configs
                 config_obj = configs.configs()
                 last_file_id = config_obj.read_config('Last_Setup', 'Last_File_ID')
@@ -180,6 +212,9 @@ class province():
                 logging.info("Localisation %s lines=%i", rel_path, loc_lines_added)
 
             def adjective(name):
+                """
+                Adds an appropiate adjective to the end based on the word's ending.
+                """
                 import random
                 if name[-2:] in "ia" or name[-2:] in "um":
                     adj_final = name[:-2]
@@ -222,8 +257,12 @@ class province():
         class flags():
 
             def select_flag():
+                """
+                Reads the current list of flags, moves it along by 1; checks if at the end and creates new list.
+                """
                 global current_flag_number
                 global flag_list_current
+                global flag_removal
                 if current_flag_number < len(flag_list_current):
                     current_flag = flag_list_current[current_flag_number]
                     current_flag_number += 1
@@ -234,6 +273,9 @@ class province():
                     return current_flag
 
             def assign_flag(province_dict):
+                """
+                Creates the flag.
+                """
                 import shutil
                 import os
                 flag_file_name = "c_" + province_dict.get("county").lower().replace(" ", "_") + ".tga"
@@ -245,10 +287,16 @@ class province():
                 shutil.copyfile(copy_file_location, rel_file_path)
 
         def underscore_name(object_name) -> object:
+            """
+            Tiny utility that simply turns spaces into underlines.
+            """
             return object_name.replace(" ", "_").lower()
 
 class utilities():
     def randomise_color(value = 100):
+        """
+        Creates a single randomised RGB value.
+        """
         import random
         if value < 50:
             rng_up_ceiling = 45
@@ -267,6 +315,9 @@ class utilities():
                 value = 0
         return value
     def randomise_colors(rgb_basis):
+        """
+        Randomised a whole RGB colour.
+        """
         r_base = rgb_basis[0]
         r = utilities.randomise_color(r_base)
         g_base = rgb_basis[1]
@@ -285,12 +336,14 @@ class utilities():
 class execute():
 
     def write(fileName, startID=6, culture="Norse", religion="Catholic",  is_tribal=False,  terrain="Plains",  rgb_basis=(255, 102, 0)):
+        """
+        The actual script compiling all the other stuff.
+        """
         import logging
         province.write.common.init_province_set_up()
         province.write.common.init_landed_titles()
         province.write.loc.init_loc()
         province.read.flags.shuffle_flag_list()
-        #rgb_basis_tuple = tuple((255, 102, 0))
         spreadsheet = open(fileName, "r")
         current_id = startID
         provinces = spreadsheet.readlines()
