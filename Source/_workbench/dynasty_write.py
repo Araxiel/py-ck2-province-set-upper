@@ -15,8 +15,9 @@ def characters_file_writing(char_dictionary):
         for char in char_dictionary:
             file.write("%s = {\n" % char_dictionary[char].game_id)
             file.write("    name = \"%s\"\n" % char_dictionary[char].name)
-            file.write("    dynasty = \"%s\"\n" % char_dictionary[char].dynasty)
-            file.write("    culture = \"%s\"\n" % char_dictionary[char].culture)
+            file.write("    dynasty = %s\n" % char_dictionary[char].dynasty)
+            file.write("    culture = \"%s\"\n" % char_dictionary[char].culture.lower())
+            file.write("    religion = \"%s\"\n" % char_dictionary[char].religion.lower())
             if char_dictionary[char].father is False:
                 pass
             else:
