@@ -22,6 +22,7 @@ class configs(object):
         config.set('Last_Setup', 'terrain', 'Plains')
         config.set('Last_Setup', 'RGB_Basis', '(250,105,6)')
         config.set('Last_Setup', 'Last_File_ID', '50')
+        config.set('Last_Setup', 'Last_fileName', 'None')
         config.write(cfgfile)
         cfgfile.close()
 

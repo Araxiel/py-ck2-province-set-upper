@@ -18,9 +18,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     """
     from _workbench import configs
     config_obj = configs.configs()
-
+    #   ---- fileName
     global fileName
-    fileName = None
+    fileName_str = config_obj.read_config('Last_Setup', 'Last_fileName')
+    if fileName_str in ['None'] or fileName_str in '':
+        fileName = None
+    else:
+        fileName = fileName_str
+        from pathlib import Path
+        my_file = Path(fileName)
+        if not my_file.is_file():
+            fileName = None
+            config_obj.edit_config('Last_Setup', 'Last_fileName', None)
+    #   ---- fileName End
     global startID
     startID_str = config_obj.read_config('Last_Setup', 'startID')
     startID = int(startID_str)
@@ -187,7 +197,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             "",
             self.tr("*.csv;;*"),
             self.tr(".csv"))
-        logging.info('Loaded File %s',str(fileName))
+        fileName = fileName[0]
+        logging.info('Loaded File %s', str(fileName))
 
     @pyqtSlot()
     def on_pushButton_write_pressed(self):
@@ -197,22 +208,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         from _workbench import workbench
         import random
         global rgb_basis
-        logging.info('Started Writing')
+        from _workbench import configs
+        config_obj = configs.configs()
+        current_version = config_obj.read_config('Basic', 'Version')
+        username = config_obj.read_config('Basic', 'User')
+        logging.info('Started Writing   ~~  Version: %s   ~~  User: %s', current_version, username)
         rgb_basis = list((rgb_basis_r, rgb_basis_g, rgb_basis_b))
-        if fileName is None:
-            QMessageBox.warning(
+        if fileName is None or fileName is '':
+            QMessageBox.critical(
                 self,
                 self.tr("No File"),
-                self.tr("""No File Loaded"""),
+                self.tr("""No file has been loaded.\nYou need to first load a file."""),
                 QMessageBox.StandardButtons(
-                    QMessageBox.Ok),
-                QMessageBox.Ok)
+                    QMessageBox.Cancel))
             return
         else:
-            logging.info('Parameters: startID=%d Culture=%s Religion=%s Terrain=%s is_tribal=%s rgb_base=%s', startID, culture, religion, terrain, str(is_tribal), rgb_basis)
-            workbench.execute.write(fileName[0],startID,culture,religion,is_tribal,terrain,rgb_basis)
+            logging.info('Parameters: startID=%d Culture=%s Religion=%s Terrain=%s is_tribal=%s rgb_base=%s', startID,
+                         culture, religion, terrain, str(is_tribal), rgb_basis)
             logging.info('----- Exited Writing - ')
             deus_vult_mode = random.randrange(0,15)
+            logging.info('----- Exited Writing ----- ')
+            deus_vult_mode = random.randrange(0, 15)
             if deus_vult_mode < 2:
                 logging.info('DEUS VULT')
                 print("DEUS VULT INFIDEL")
@@ -228,16 +244,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             from _workbench import configs
             logging.info('Writing Config')
             config_obj = configs.configs()
-            last_file_id = config_obj.read_config('Last_Setup','Last_File_ID')
+            last_file_id = config_obj.read_config('Last_Setup', 'Last_File_ID')
             last_file_id_int: int = int(last_file_id)
             last_file_id_int += 1
             last_file_id = str(last_file_id_int)
-            config_obj.edit_config('Last_Setup','Last_File_ID',str(last_file_id))
-            config_obj.edit_config('Last_Setup','startid',str(startID))
-            config_obj.edit_config('Last_Setup','culture',culture)
-            config_obj.edit_config('Last_Setup','religion',religion)
-            config_obj.edit_config('Last_Setup','terrain',terrain)
-            config_obj.edit_config('Last_Setup','is_tribal',str(is_tribal))
-            config_obj.edit_config('Last_Setup','rgb_basis',str(rgb_basis))
+            config_obj.edit_config('Last_Setup', 'Last_File_ID', str(last_file_id))
+            if not startID is '':
+                config_obj.edit_config('Last_Setup', 'startid', str(startID))
+            if not culture is '':
+                config_obj.edit_config('Last_Setup', 'culture', culture)
+            if not religion is '':
+                config_obj.edit_config('Last_Setup', 'religion', religion)
+            if not terrain is '':
+                config_obj.edit_config('Last_Setup', 'terrain', terrain)
+            config_obj.edit_config('Last_Setup', 'is_tribal', str(is_tribal))
+            config_obj.edit_config('Last_Setup', 'rgb_basis', str(rgb_basis))
+            config_obj.edit_config('Last_Setup', 'Last_fileName', str(fileName))
             logging.info('EXECUTION COMPLETE')
-            logging.info("-------------------------------------------------------------------------------------------------------------------------------------------------")
+            logging.info(
+                "-------------------------------------------------------------------------------------------------------------------------------------------------")
