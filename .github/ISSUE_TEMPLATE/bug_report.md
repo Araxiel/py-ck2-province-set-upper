@@ -13,7 +13,6 @@ A clear and concise description of what the bug is.
 - [ ] Add Screnshot
 - [ ] Upload 'config.ini'
 __________
------- Delete these sections if not needed ------
 #### Optional Info
 
 **To Reproduce**
