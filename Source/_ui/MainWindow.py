@@ -255,13 +255,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             last_file_id_int += 1
             last_file_id = str(last_file_id_int)
             config_obj.edit_config('Last_Setup', 'Last_File_ID', str(last_file_id))
-            if not startID is '':
+            if startID is not '':
                 config_obj.edit_config('Last_Setup', 'startid', str(startID))
-            if not culture is '':
+            if culture is not '':
                 config_obj.edit_config('Last_Setup', 'culture', culture)
-            if not religion is '':
+            if religion is not '':
                 config_obj.edit_config('Last_Setup', 'religion', religion)
-            if not terrain is '':
+            if terrain is not '':
                 config_obj.edit_config('Last_Setup', 'terrain', terrain)
             config_obj.edit_config('Last_Setup', 'is_tribal', str(is_tribal))
             config_obj.edit_config('Last_Setup', 'rgb_basis', str(rgb_basis))
