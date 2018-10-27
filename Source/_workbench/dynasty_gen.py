@@ -1,5 +1,3 @@
-import dynasty_write
-
 class Character(object):
 
     def generate_death(self, essential=True):
@@ -10,9 +8,9 @@ class Character(object):
             # print(self.name + " es: " + str(essential))
             min_age = 18
         death_ages_container = [random.randint(min_age, min_age + 8)]
-        for x in range(0, 8):
+        for each in range(0, 8):
             death_ages_container.append(random.randint(25, 60))
-        for x in range(0, 2):
+        for each in range(0, 2):
             death_ages_container.append(random.randint(65, 80))
         # print(self.name + " dc: " + str(death_ages_container))
         final_age = random.choice(death_ages_container)
@@ -181,13 +179,13 @@ def generate_character(caller, name=False, dynasty=756, culture='saxon', religio
     protagonist.title_holder = True
     #TODO amount of potential kids somehow tied to death-date
     boys_amount = random.randint(0, 2)
-    for x in range(0, boys_amount):
+    for boys in range(0, boys_amount):
         last_char = protagonist.generate_child()
     random_pick = random.choice(protagonist.children_list)
     random_pick.generate_child()
     girls_amount_weight = (0, 0, 0, 1, 1, 2)
     girls_amount = random.choice(girls_amount_weight)
-    for x in range(0, girls_amount):
+    for girl in range(0, girls_amount):
         last_char = protagonist.generate_child(female=True)
     return protagonist
 
