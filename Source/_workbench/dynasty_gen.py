@@ -19,11 +19,13 @@ class Character(object):
         self.death = daterizer(death_year)
 
     def __init__(self, name=False, dynasty=756, culture='saxon', religion='catholic', birth=(1025, 1, 2),
-                 death=(1066, 10, 14), female=False, game_id=60000, essential=True, main_heir=None, title_holder = False, founder=False, dynasty_name="Normandy"):
+                 death=(1066, 10, 14), female=False, game_id=60000, essential=True, main_heir=None, title_holder=False,
+                 founder=False, dynasty_name="Normandy"):
         if birth is None:
             birth = [1025, 1, 2]
         if name is False:
-            self.name = get_random_name(female)
+            global name_list
+            self.name = get_random_name(name_list, female)
         else:
             self.name = name
         self.dynasty = dynasty
@@ -65,7 +67,8 @@ class Character(object):
             child_birth_date = daterizer(self.last_child_date[0] + var)
         child_id = assign_id('guys')
         global character_list
-        character_list[child_id] = Character(essential=essential,birth=child_birth_date,culture=self.culture,religion=self.religion, dynasty_name=self.dynasty_name)
+        character_list[child_id] = Character(essential=essential, birth=child_birth_date, culture=self.culture,
+                                             religion=self.religion, dynasty_name=self.dynasty_name)
         character_list[child_id].father = self
         if len(self.spouses_list):
             for index, item in enumerate(self.spouses_marry_dates_list):
@@ -149,27 +152,40 @@ def assign_id(id_type):
 
 
 # noinspection SpellCheckingInspection
-def get_random_name(female=False):
+def get_random_name(name_list, female=False):
     import random
-    if female is True:
-        name_list = ('Francine', 'Willhelmina', 'Sophia', 'Colette', 'Katerina', 'Brigitte', 'Margeritte')
-    else:
-        name_list = (
-            'Bart', 'Willhelm', 'Harold', 'John', 'Francis', 'Ryan', 'Winston', 'Brian', 'Konrad', 'Jason', 'Homer')
     name = random.choice(name_list)
+    if female is True:
+        name = "WOMZ"
     return name
 
 
-def generate_character(caller, name=False, dynasty=756, culture='saxon', religion='catholic', birth=(1025, 1, 2), death=None,
-                female=False, game_id=60000, essential=True, title_holder = False, dynasty_name="Normandy"):
+def name_list_loading(file_name):
+    # TODO once implemented in UI, fix path
+    import os
+    rel_path = ("\\Databases\\Names\\%s.csv" % file_name)
+    absolute_path = os.path.dirname(os.getcwd()) + rel_path
+    fh = open(absolute_path, "r")
+    file_content = fh.read()
+    name_list = file_content.split(';')
+    name_list.remove('\n')
+    name_list = [x for x in name_list if x]
+    return name_list
+
+
+def generate_character(caller, name=False, dynasty=756, culture='saxon', religion='catholic', birth=(1025, 1, 2),
+                       death=None,
+                       female=False, game_id=60000, essential=True, title_holder=False, dynasty_name="Normandy"):
     if death is None:
         death = starting_date
     import random
-    protagonist = caller    # makes sure that whoever is the caller get's protagonist, if no Character is created.
+    protagonist = caller  # makes sure that whoever is the caller get's protagonist, if no Character is created.
     if caller is 'founder':
         char_number = assign_id('guys')
-        character_list[char_number] = Character(name=name, dynasty=dynasty, culture=culture, religion=religion, birth=birth,
-                                                death=death, female=female, game_id=game_id, essential=essential, title_holder=title_holder, dynasty_name=dynasty_name)
+        character_list[char_number] = Character(name=name, dynasty=dynasty, culture=culture, religion=religion,
+                                                birth=birth,
+                                                death=death, female=female, game_id=game_id, essential=essential,
+                                                title_holder=title_holder, dynasty_name=dynasty_name)
         protagonist = character_list[char_number]
         protagonist.founder = True
     global last_char
@@ -200,8 +216,8 @@ name_ids = {
 }
 character_list = {}
 
-last_char = generate_character(caller='founder',game_id=global_game_id, birth=wayback(starting_date[0], 100),title_holder=True,dynasty_name="Normandy")
-max_generations = input()
+name_list = name_list_loading('italian')
+
 for x in range(1, generations):
     last_char = generate_character(caller=last_char.main_heir, title_holder=True)
 
