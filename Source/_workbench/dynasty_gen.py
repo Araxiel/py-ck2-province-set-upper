@@ -52,16 +52,16 @@ class Character(object):
         age_death = get_age_to_death(self.birth, self.death)
         if age_death < 17:
             age_death = random.randint(18, 20)
-        #rint("age death: " + str(age_death))
+        # print("age death: " + str(age_death))
         if not self.children_list:
-            #print("No Kids")
+            # print("No Kids")
             has_first_child_age = random.randint(17, age_death)
-            #print("has_first_child_age:" + str(has_first_child_age))
+            # print("has_first_child_age:" + str(has_first_child_age))
             child_birth_date = daterizer(self.birth[0] + has_first_child_age)
         else:
-            #print("Already has Kids")
-            var = random.randint(4, age_death+4)
-            #print("var: " + str(var))
+            # print("Already has Kids")
+            var = random.randint(4, age_death + 4)
+            # print("var: " + str(var))
             child_birth_date = daterizer(self.last_child_date[0] + var)
         child_id = assign_id('guys')
         global character_list
@@ -177,7 +177,7 @@ def generate_character(caller, name=False, dynasty=756, culture='saxon', religio
     last_char = protagonist.generate_child(essential=True)
     protagonist.main_heir = last_char
     protagonist.title_holder = True
-    #TODO amount of potential kids somehow tied to death-date
+    # TODO amount of potential kids somehow tied to death-date
     boys_amount = random.randint(0, 2)
     for boys in range(0, boys_amount):
         last_char = protagonist.generate_child()
