@@ -208,6 +208,7 @@ def generate_character(caller, name=False, dynasty=756, culture='saxon', religio
 
 global_game_id = 86540
 starting_date = list((806, 6, 16))
+starting_date[0] = int(input(1776))
 
 name_ids = {
     'guys': 1000,
@@ -218,8 +219,16 @@ character_list = {}
 
 name_list = name_list_loading('italian')
 
-for x in range(1, generations):
+dynasty_name = input('Normandy')
+culture = input('Norse')
+religion = input('Catholic')
+last_char = generate_character(caller='founder', game_id=global_game_id, birth=wayback(starting_date[0], 100),
+                               title_holder=True, dynasty_name=dynasty_name, culture=culture, religion=religion)
+max_generations = int(input(8))
+for x in range(1, max_generations):
     last_char = generate_character(caller=last_char.main_heir, title_holder=True)
+
+import dynasty_write
 
 dynasty_write.characters_file_set_up()
 dynasty_write.characters_file_writing(character_list)
