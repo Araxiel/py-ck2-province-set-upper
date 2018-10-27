@@ -12,9 +12,9 @@ A clear and concise description of what the bug is.
 *If applicable...*
 - [ ] Add Screnshot
 - [ ] Upload 'config.ini'
-
-#### Optional Info
+__________
 ------ Delete these sections if not needed ------
+#### Optional Info
 
 **To Reproduce**
 Steps to reproduce the behavior
@@ -24,3 +24,4 @@ A clear and concise description of what you expected to happen.
 
 **Additional context**
 Add any other context about the problem here.
+__________
