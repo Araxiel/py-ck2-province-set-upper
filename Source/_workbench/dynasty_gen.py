@@ -122,6 +122,8 @@ class Character(object):
         last_char = character_list[wife_id]
         return character_list[wife_id]
 
+    # TODO event-based child and spouse generation
+
 
 def daterizer(year_in=1025):
     import random
