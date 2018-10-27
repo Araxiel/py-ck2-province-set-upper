@@ -39,6 +39,8 @@ class Ui_MainWindow(object):
     rgb_basis_g = rgb_basis[1]
     global rgb_basis_b
     rgb_basis_b = rgb_basis[2]
+    global flag_removal
+    flag_removal = False
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")

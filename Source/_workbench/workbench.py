@@ -262,7 +262,6 @@ class province():
                 """
                 global current_flag_number
                 global flag_list_current
-                global flag_removal
                 if current_flag_number < len(flag_list_current):
                     current_flag = flag_list_current[current_flag_number]
                     current_flag_number += 1
@@ -272,19 +271,28 @@ class province():
                     current_flag = province.write.flags.select_flag()
                     return current_flag
 
-            def assign_flag(province_dict):
+            def assign_flag(province_dict,flag_removal):
                 """
                 Creates the flag.
                 """
                 import shutil
                 import os
-                flag_file_name = "c_" + province_dict.get("county").lower().replace(" ", "_") + ".tga"
+                import logging
+                flag_file_name = "c_" + province_dict.get("county").lower().replace(" ", "_") + ".tga"  # c_carcossa.tga
                 rel_path = "Output\\gfx\\flags\\"
-                rel_file_path = rel_path + flag_file_name
-                os.makedirs(os.path.dirname(rel_file_path), exist_ok=True)
-                current_flag = province.write.flags.select_flag()
-                copy_file_location = ("Databases\\Flags\\" + current_flag)
-                shutil.copyfile(copy_file_location, rel_file_path)
+                rel_file_path = rel_path + flag_file_name   #  "Output\\gfx\\flags\\c_carcossa.tga"
+                os.makedirs(os.path.dirname(rel_file_path), exist_ok=True)  # create folder
+                current_flag = province.write.flags.select_flag()   # "placeholder_7.tga"
+                copy_file_location = ("Databases\\Flags\\" + current_flag)  # "Databases\\Flags\\placeholder7.tga"
+                shutil.copyfile(copy_file_location, rel_file_path)  # copies "Databases\\Flags\\placeholder7.tga" as "Output\\gfx\\flags\\c_carcossa,tga"
+                if flag_removal is True:
+                    rel_path = "Databases\\Flags\\Removed\\"
+                    rel_file_path = rel_path + flag_file_name  # "Databases\\Flags\\Removed\\c_carcossa.tga"
+                    os.makedirs(os.path.dirname(rel_file_path), exist_ok=True)  # create folder
+                    print(copy_file_location + " ~~~ " +  rel_file_path)
+                    os.replace(copy_file_location, rel_file_path)  # moves-renames "Databases\\Flags\\placeholder7.tga" as "Databases\\Flags\\Removed\\c_carcossa.tga"
+                logging.info("%s was used for %s", current_flag, province_dict.get("county"))
+
 
         def underscore_name(object_name) -> object:
             """
@@ -329,7 +337,7 @@ class utilities():
 
 class execute():
 
-    def write(fileName, startID=6, culture="Norse", religion="Catholic",  is_tribal=False,  terrain="Plains",  rgb_basis=(255, 102, 0)):
+    def write(fileName, startID=6, culture="Norse", religion="Catholic",  is_tribal=False,  terrain="Plains",  rgb_basis=(255, 102, 0),flag_removal = False):
         """
         The actual script compiling all the other stuff.
         """
@@ -349,7 +357,7 @@ class execute():
             province.write.common.province_set_up(province_dict, current_id, terrain)
             province.write.common.landed_titles(province_dict,rgb_basis)
             province.write.loc.locs(province_dict,current_id)
-            province.write.flags.assign_flag(province_dict)
+            province.write.flags.assign_flag(province_dict,flag_removal)
             current_id += 1
             logging.info("Finished with  %s", province_dict)
 

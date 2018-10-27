@@ -56,6 +56,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     rgb_basis_g = rgb_basis[1]
     global rgb_basis_b
     rgb_basis_b = rgb_basis[2]
+    global flag_removal
+    flag_removal = False
+
     def __init__(self, parent=None):
         """
         Constructor
@@ -152,7 +155,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         @param checked DESCRIPTION
         @type bool
         """
-        pass
+        global flag_removal
+        flag_removal = checked
 
     @pyqtSlot(bool)
     def on_checkBox_baronyhistoryfiles_toggled(self, checked):
@@ -225,8 +229,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             logging.info('Parameters: startID=%d Culture=%s Religion=%s Terrain=%s is_tribal=%s rgb_base=%s', startID,
                          culture, religion, terrain, str(is_tribal), rgb_basis)
-            logging.info('----- Exited Writing - ')
-            deus_vult_mode = random.randrange(0,15)
+            if flag_removal is True:
+                logging.info('Flag Removal turned on')
+            workbench.execute.write(fileName, startID, culture, religion, is_tribal, terrain, rgb_basis,
+                                    flag_removal)
             logging.info('----- Exited Writing ----- ')
             deus_vult_mode = random.randrange(0, 15)
             if deus_vult_mode < 2:
