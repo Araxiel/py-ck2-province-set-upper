@@ -221,7 +221,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         logging.info('Started Writing')
         rgb_basis = list((rgb_basis_r, rgb_basis_g, rgb_basis_b))
         if fileName is None:
-            QMessageBox.information(self, "Error", "No File Loaded")
+            QMessageBox.warning(
+                self,
+                self.tr("No File"),
+                self.tr("""No File Loaded"""),
+                QMessageBox.StandardButtons(
+                    QMessageBox.Ok),
+                QMessageBox.Ok)
             return
         else:
             logging.info('Parameters: startID=%d Culture=%s Religion=%s Terrain=%s is_tribal=%s rgb_base=%s', startID, culture, religion, terrain, str(is_tribal), rgb_basis)
