@@ -158,14 +158,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global flag_removal
         flag_removal = checked
 
-    @pyqtSlot(bool)
-    def on_checkBox_baronyhistoryfiles_toggled(self, checked):
-        """
-        @param checked DESCRIPTION
-        @type bool
-        """
-        pass
-
     @pyqtSlot()
     def on_actionConfig_triggered(self):
         import os
