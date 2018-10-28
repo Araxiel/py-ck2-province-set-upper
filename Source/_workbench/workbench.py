@@ -85,6 +85,9 @@ class province():
                     num += 1
 
             def history_titles(province_dict):
+                """
+                Creates (empty) history/titles files.
+                """
                 history_titles_filename = "c_" + province_dict.get("county").lower().replace(" ", "_")
                 rel_path = "Output\\history\\titles\\" + history_titles_filename + ".txt"
                 import os

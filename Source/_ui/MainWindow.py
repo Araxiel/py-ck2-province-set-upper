@@ -29,7 +29,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         my_file = Path(fileName)
         if not my_file.is_file():
             fileName = None
-            config_obj.edit_config('Last_Setup', 'Last_fileName', None)
+            config_obj.edit_config('Last_Setup', 'Last_fileName', 'None')
     #   ---- fileName End
     global startID
     startID_str = config_obj.read_config('Last_Setup', 'startID')
@@ -268,4 +268,4 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             config_obj.edit_config('Last_Setup', 'Last_fileName', str(fileName))
             logging.info('EXECUTION COMPLETE')
             logging.info(
-                "-------------------------------------------------------------------------------------------------------------------------------------------------")
+                "----------------------------------------------------------------------------------------------------------------------------")

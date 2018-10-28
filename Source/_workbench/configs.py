@@ -30,7 +30,8 @@ class configs(object):
         import configparser
         config = configparser.ConfigParser()
         config.read('config.ini')
-        return config.get(section, key)
+        return_value = config.get(section, key)
+        return return_value
 
     def edit_config(self,section,key,new_value):
         import configparser
