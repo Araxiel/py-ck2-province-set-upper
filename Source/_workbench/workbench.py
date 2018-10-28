@@ -378,6 +378,15 @@ class execute():
         The actual script compiling all the other stuff.
         """
         import logging
+        #   Reset empty to default
+        from _workbench import configs
+        config_obj = configs.configs()
+        if culture in '':
+            culture = config_obj.read_config('Last_Setup', 'culture')
+        if religion in '':
+            religion = config_obj.read_config('Last_Setup', 'religion')
+        if terrain in '':
+            terrain = config_obj.read_config('Last_Setup', 'terrain')
         province.read.flags.shuffle_flag_list()
         province.write.common.init_province_set_up()
         province.write.common.init_landed_titles()
