@@ -58,6 +58,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     rgb_basis_b = rgb_basis[2]
     global flag_removal
     flag_removal = False
+    global templeDist
+    templeDist = 0
 
     def __init__(self, parent=None):
         """
@@ -138,7 +140,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         @param p0 DESCRIPTION
         @type int
         """
-        pass
+        global templeDist
+        templeDist = p0
 
     @pyqtSlot(bool)
     def on_checkBox_isTribal_toggled(self, checked):
@@ -203,13 +206,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """
         from _workbench import workbench
         import random
-        global rgb_basis
         from _workbench import configs
         config_obj = configs.configs()
         last_file_id = config_obj.read_config('Last_Setup', 'Last_File_ID')
         current_version = config_obj.read_config('Basic', 'Version')
         username = config_obj.read_config('Basic', 'User')
         logging.info('Started Writing   ~~  Version: %s   ~~  User: %s  ~~  Run ID: %s', current_version, username, last_file_id)
+        global rgb_basis
         rgb_basis = list((rgb_basis_r, rgb_basis_g, rgb_basis_b))
         if fileName is None or fileName is '':
             QMessageBox.critical(
@@ -243,7 +246,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         file.write("~~~~~~~~~~~~~~\nFor run ID %s\n" % (last_file_id))
                     pass
             workbench.execute.write(fileName, startID, culture, religion, is_tribal, terrain, rgb_basis,
-                                    flag_removal)
+                                    flag_removal, templeDist)
             logging.info('----- Exited Writing ----- ')
             deus_vult_mode = random.randrange(0, 15)
             if deus_vult_mode < 2:

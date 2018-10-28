@@ -59,7 +59,7 @@ class province():
 
         class history():
 
-            def history_province(province_dict, current_id=6, culture = "norse", religion = "catholic", is_tribal = False, terrain = None):
+            def history_province(province_dict, current_id=6, culture = "norse", religion = "catholic", is_tribal = False, terrain = None, templeDist = 0):
                 """
                 Writes the history/provinces file.
                 """
@@ -67,14 +67,24 @@ class province():
                 history_provinces_filename = str(current_id) + " - " + underscored_name
                 rel_path = "Output\\history\\provinces\\" + history_provinces_filename + ".txt"
                 import os
+                import logging
                 os.makedirs(os.path.dirname(rel_path), exist_ok=True)
                 with open(rel_path, "w") as file:
                     file.write("# " + str(current_id) + " - " + province_dict.get("county") + "\n\n# County Title\n")
                     file.write("title = c_" + underscored_name + "\n\n")
                     file.write("# Settlements\nmax_settlements = " + str(len(province_dict.keys())-1) + "\n")
                     if ( is_tribal == True ):
-                        file.write("b_" + province_dict.get("barony_1").lower().replace(" ", "_") + " = is_tribal\n\n")
-                        province.write.comment_overflow_baronies(province_dict,file,is_tribal)
+                        file.write("b_" + province_dict.get("barony_1").lower().replace(" ", "_") + " = tribe\n")
+                        import random
+                        temple_chance = random.randint(1, 100)
+                        if temple_chance <= templeDist:
+                            file.write("b_" + province_dict.get("barony_2").lower().replace(" ", "_") + " = temple\n\n")
+                            added_temple = True
+                            logging.info("Temple added to tribal holding %s", province_dict.get("county"))
+                        else:
+                            file.write("\n")
+                            added_temple = False
+                        province.write.history.comment_overflow_baronies(province_dict,file,is_tribal,added_temple)
                     else:
                         file.write("b_" + province_dict.get("barony_1").lower().replace(" ", "_") + " = castle\n")
                         file.write("b_" + province_dict.get("barony_2").lower().replace(" ", "_") + " = city\n")
@@ -84,15 +94,17 @@ class province():
                     if terrain is not None:
                         file.write("terrain = " + terrain + "\n")
                     file.write("\n# History\n")
-                import logging
                 logging.info("Province History written: %s", rel_path)
 
-            def comment_overflow_baronies(province_dict,file,is_tribal=False):
+            def comment_overflow_baronies(province_dict,file,is_tribal=False,added_temple = False):
                 """
                 Appends the commented-out baronies.
                 """
-                if ( is_tribal == True ):
-                    num = 2
+                if is_tribal is True:
+                    if added_temple is True:
+                        num = 3
+                    else:
+                        num = 2
                 else:
                     num = 4
                 for x in province_dict:
@@ -360,7 +372,7 @@ class utilities():
 
 class execute():
 
-    def write(fileName, startID=6, culture="Norse", religion="Catholic",  is_tribal=False,  terrain="Plains",  rgb_basis=(255, 102, 0),flag_removal = False):
+    def write(fileName, startID=6, culture="Norse", religion="Catholic",  is_tribal=False,  terrain="Plains",  rgb_basis=(255, 102, 0),flag_removal = False, templeDist = 0):
         """
         The actual script compiling all the other stuff.
         """
@@ -375,7 +387,7 @@ class execute():
         for x in provinces:
             province_dict = province.read.dictionary_creation(x)
             logging.info("Started with  %s", x[:-2])
-            province.write.history.history_province(province_dict, current_id, culture.lower(), religion.lower(), is_tribal, terrain.lower())
+            province.write.history.history_province(province_dict, current_id, culture.lower(), religion.lower(), is_tribal, terrain.lower(), templeDist)
             province.write.history.history_titles(province_dict)
             province.write.common.province_set_up(province_dict, current_id, terrain)
             province.write.common.landed_titles(province_dict,rgb_basis)
