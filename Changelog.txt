@@ -17,3 +17,24 @@ GitHub: https://github.com/Araxiel/CK2-Province_Set-Upper
 1.2.2
 -	Improved randomised flags algorithm
 -	Basic adjectives
+
+1.3.0
+Features:
+- 	Drop the need for ;x; at the end
+- 	Generates decent adjectives to county localisation
+- 	Adds setupper.log
+-	Adds config.ini
+-	Adds flag-removal option
+-	Adds temple distribution chance for tribal holdings
+- 	Adds Deus Vult
+Fixes:
+-	Fixes rgb overwrite
+-	Improved message boxes
+
+1.3.1
+Fixes:
+-	Fixed empty settings result in empty output
+-	Fixed dictionary crash
+-	Fixed log not being created on first start
+-	Fixed crash when putting any non-integer into startID
+-	Fixes forgetting to turn spaces into underlines for culture/religion

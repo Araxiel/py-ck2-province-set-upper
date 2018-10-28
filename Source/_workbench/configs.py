@@ -5,15 +5,13 @@ class configs(object):
     # Check if there is already a configurtion file
     if not os.path.isfile(configfile_name):
         print("Setting Up Config")
-        import logging
-        logging.info('Created Config')
         # Create the configuration file as it doesn't exist yet
         cfgfile = open(configfile_name, 'w')
         # Add content to the file
         config = configparser.ConfigParser()
         config.add_section('Basic')
-        config.set('Basic', 'Version', '1.3.0')
-        config.set('Basic', 'User', 'Willhelm')
+        config.set('Basic', 'Version', '1.3.1')
+        config.set('Basic', 'User', 'Charlemagne')
         config.add_section('Last_Setup')
         config.set('Last_Setup', 'startID', '16')
         config.set('Last_Setup', 'Culture', 'Norse')

@@ -8,7 +8,8 @@ class province():
             Takes one line and turns it into the current dictionary.
             """
             province_elements = province_line.split(';')
-            province_elements.remove('\n')
+            if '\n' in province_elements:
+                province_elements.remove('\n')
             province_elements = [x for x in province_elements if x]
             province_dict = dict(
                 county = province_elements[0],
@@ -90,7 +91,7 @@ class province():
                         file.write("b_" + province_dict.get("barony_2").lower().replace(" ", "_") + " = city\n")
                         file.write("b_" + province_dict.get("barony_3").lower().replace(" ", "_") + " = temple\n\n")
                         province.write.history.comment_overflow_baronies(province_dict,file,is_tribal)
-                    file.write("\n# Misc\nculture = " + culture + "\nreligion = " + religion + "\n")
+                    file.write("\n# Misc\nculture = " + culture.replace(" ", "_") + "\nreligion = " + religion.replace(" ", "_") + "\n")
                     if terrain is not None:
                         file.write("terrain = " + terrain + "\n")
                     file.write("\n# History\n")
@@ -154,7 +155,7 @@ class province():
                     file.write(str(current_id) + " = {\n")
                     file.write("    title = c_" + province_dict.get("county").lower().replace(" ", "_") + "\n")
                     file.write("    max_settlements = " + str(len(province_dict.keys())-1) + "\n")
-                    file.write("    terrain = " + terrain + "\n}\n")
+                    file.write("    terrain = " + terrain.lower().replace(" ", "_") + "\n}\n")
                 import logging
                 logging.info("Province-Setup: c_%s", province_dict.get("county").lower().replace(" ", "_"))
 
@@ -377,6 +378,15 @@ class execute():
         The actual script compiling all the other stuff.
         """
         import logging
+        #   Reset empty to default
+        from _workbench import configs
+        config_obj = configs.configs()
+        if culture in '':
+            culture = config_obj.read_config('Last_Setup', 'culture')
+        if religion in '':
+            religion = config_obj.read_config('Last_Setup', 'religion')
+        if terrain in '':
+            terrain = config_obj.read_config('Last_Setup', 'terrain')
         province.read.flags.shuffle_flag_list()
         province.write.common.init_province_set_up()
         province.write.common.init_landed_titles()
