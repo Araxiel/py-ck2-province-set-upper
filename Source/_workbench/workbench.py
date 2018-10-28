@@ -155,7 +155,7 @@ class province():
                     file.write(str(current_id) + " = {\n")
                     file.write("    title = c_" + province_dict.get("county").lower().replace(" ", "_") + "\n")
                     file.write("    max_settlements = " + str(len(province_dict.keys())-1) + "\n")
-                    file.write("    terrain = " + terrain + "\n}\n")
+                    file.write("    terrain = " + terrain.lower().replace(" ", "_") + "\n}\n")
                 import logging
                 logging.info("Province-Setup: c_%s", province_dict.get("county").lower().replace(" ", "_"))
 
