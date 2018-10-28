@@ -8,7 +8,8 @@ class province():
             Takes one line and turns it into the current dictionary.
             """
             province_elements = province_line.split(';')
-            province_elements.remove('\n')
+            if '\n' in province_elements:
+                province_elements.remove('\n')
             province_elements = [x for x in province_elements if x]
             province_dict = dict(
                 county = province_elements[0],
