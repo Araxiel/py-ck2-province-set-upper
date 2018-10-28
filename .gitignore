@@ -12,6 +12,8 @@ Source/Databases/**
 ProvinceSetUpper.zip
 ProvinceSetUpper.exe
 _building/*
+*.autosave
+config.ini
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -39,17 +41,6 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
-
-# IDE
-*.e4q
-*.e6t
-*.e4p
-.idea/
-.eric6project/
-output/
-*.lnk
-scratch.py
-scratch*.py
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
