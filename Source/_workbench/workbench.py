@@ -91,7 +91,7 @@ class province():
                         file.write("b_" + province_dict.get("barony_2").lower().replace(" ", "_") + " = city\n")
                         file.write("b_" + province_dict.get("barony_3").lower().replace(" ", "_") + " = temple\n\n")
                         province.write.history.comment_overflow_baronies(province_dict,file,is_tribal)
-                    file.write("\n# Misc\nculture = " + culture + "\nreligion = " + religion + "\n")
+                    file.write("\n# Misc\nculture = " + culture.replace(" ", "_") + "\nreligion = " + religion.replace(" ", "_") + "\n")
                     if terrain is not None:
                         file.write("terrain = " + terrain + "\n")
                     file.write("\n# History\n")
