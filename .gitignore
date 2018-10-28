@@ -8,7 +8,7 @@ output/
 *.lnk
 scratch.py
 scratch*.py
-Source/Databases/**
+#Source/Databases/**
 ProvinceSetUpper.zip
 ProvinceSetUpper.exe
 _building/*
