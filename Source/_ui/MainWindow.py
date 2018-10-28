@@ -259,11 +259,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 print("DEUS VULT INFIDEL")
                 for x in range(3):
                     print("DEUS VULT DEUS VULT DEUS VULT")
-                import webbrowser
-                webbrowser.open('https://webmshare.com/play/ZQDQw')
                 for x in range(3):
                     QMessageBox.information(self, "DEUS VULT INFIDEL",
                                             "DEUS VULT DEUS VULT DEUS VULT\nDEUS VULT DEUS VULT DEUS VULT\nDEUS VULT DEUS VULT DEUS VULT\n")
+                import webbrowser
+                webbrowser.open('https://webmshare.com/play/ZQDQw')
             else:
                 QMessageBox.information(self, "Complete", "Complete\n\nCheck the Output folder")
             from _workbench import configs

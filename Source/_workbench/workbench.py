@@ -313,7 +313,7 @@ class province():
                     os.replace(copy_file_location, rel_file_path)  # moves-renames "Databases\\Flags\\placeholder7.tga" as "Databases\\Flags\\Removed\\c_carcossa.tga"
                     pseudo_log_path = rel_path + 'removed_flag_list.log'
                     with open(pseudo_log_path, "a") as file:
-                        file.write("%s was used for %s\n" % (current_flag, province_dict.get("county")))
+                        file.write("%s was used for %s as %s\n" % (current_flag, province_dict.get("county"), flag_file_name))
                 logging.info("%s was used for %s", current_flag, province_dict.get("county"))
 
 
