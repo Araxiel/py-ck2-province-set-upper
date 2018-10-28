@@ -78,7 +78,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         @type str
         """
         global startID
-        startID = int(p0)
+        if p0.isdigit():
+            startID = int(p0)
+        else:
+            QMessageBox.critical(
+                self,
+                self.tr("Not an Integer"),
+                self.tr(
+                    """StartID requires a integer to function."""),
+                QMessageBox.StandardButtons(
+                    QMessageBox.Cancel))
+
 
     @pyqtSlot(str)
     def on_lineEdit_religion_textChanged(self, p0):
