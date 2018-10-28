@@ -4,6 +4,7 @@ The Province Set-Upper is a small utility to make map-creating less of a tedious
 ![screenshot][screenshot]
 
 ### [Download current version][dl_link]
+**[Release Page][release_page]**
 ___
 
 ### What It Does
@@ -46,4 +47,5 @@ ___
 Written by [Araxiel](https://github.com/Araxiel)
 
 [screenshot]: https://raw.githubusercontent.com/Araxiel/CK2-Province_Set-Upper/master/docs/menu_ss.JPG  "Screenshot"
-[dl_link]: https://github.com/Araxiel/CK2-Province_Set-Upper/releases/download/1.2.2/ProvinceSetUpper.zip
+[dl_link]: https://github.com/Araxiel/CK2-Province_Set-Upper/releases/download/1.3.1/ProvinceSetUpper.zip
+[release_page]: https://github.com/Araxiel/CK2-Province_Set-Upper/releases/tag/1.3.1
