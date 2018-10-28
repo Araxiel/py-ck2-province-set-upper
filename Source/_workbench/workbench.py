@@ -29,13 +29,31 @@ class province():
                 import os
                 import random
                 flag_list_original = os.listdir("Databases\\Flags")
+                flag_list_cleaned = [element for element in flag_list_original if element.endswith('.tga')]
                 global flag_list_current
-                flag_list_current = flag_list_original.copy()
+                flag_list_current = flag_list_cleaned.copy()
                 random.shuffle(flag_list_current)
                 global current_flag_number
                 current_flag_number = 0
                 import logging
                 logging.info("Flag Order %s", flag_list_current)
+
+            def check_if_enough(fileName):
+                """
+                True if enough flags, False if too few flags. Checks if there are enough files to remove.
+                """
+                import os
+                flag_list_original = os.listdir("Databases\\Flags")
+                flag_list_cleaned = [element for element in flag_list_original if element.endswith('.tga')]
+                flags_amount = len(flag_list_cleaned)
+                spreadsheet = open(fileName, "r")
+                provinces = spreadsheet.readlines()
+                prov_num = len(provinces)
+                if prov_num <= flags_amount:
+                    return True
+                else:
+                    return False
+
 
     class write():
 
@@ -292,8 +310,10 @@ class province():
                     rel_path = "Databases\\Flags\\Removed\\"
                     rel_file_path = rel_path + flag_file_name  # "Databases\\Flags\\Removed\\c_carcossa.tga"
                     os.makedirs(os.path.dirname(rel_file_path), exist_ok=True)  # create folder
-                    print(copy_file_location + " ~~~ " +  rel_file_path)
                     os.replace(copy_file_location, rel_file_path)  # moves-renames "Databases\\Flags\\placeholder7.tga" as "Databases\\Flags\\Removed\\c_carcossa.tga"
+                    pseudo_log_path = rel_path + 'removed_flag_list.log'
+                    with open(pseudo_log_path, "a") as file:
+                        file.write("%s was used for %s\n" % (current_flag, province_dict.get("county")))
                 logging.info("%s was used for %s", current_flag, province_dict.get("county"))
 
 
@@ -345,10 +365,10 @@ class execute():
         The actual script compiling all the other stuff.
         """
         import logging
+        province.read.flags.shuffle_flag_list()
         province.write.common.init_province_set_up()
         province.write.common.init_landed_titles()
         province.write.loc.init_loc()
-        province.read.flags.shuffle_flag_list()
         spreadsheet = open(fileName, "r")
         current_id = startID
         provinces = spreadsheet.readlines()

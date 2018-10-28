@@ -214,9 +214,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         global rgb_basis
         from _workbench import configs
         config_obj = configs.configs()
+        last_file_id = config_obj.read_config('Last_Setup', 'Last_File_ID')
         current_version = config_obj.read_config('Basic', 'Version')
         username = config_obj.read_config('Basic', 'User')
-        logging.info('Started Writing   ~~  Version: %s   ~~  User: %s', current_version, username)
+        logging.info('Started Writing   ~~  Version: %s   ~~  User: %s  ~~  Run ID: %s', current_version, username, last_file_id)
         rgb_basis = list((rgb_basis_r, rgb_basis_g, rgb_basis_b))
         if fileName is None or fileName is '':
             QMessageBox.critical(
@@ -231,6 +232,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                          culture, religion, terrain, str(is_tribal), rgb_basis)
             if flag_removal is True:
                 logging.info('Flag Removal turned on')
+                enough_flags_check = workbench.province.read.flags.check_if_enough(fileName)
+                if enough_flags_check is False:
+                    QMessageBox.critical(
+                        self,
+                        self.tr("Not Enough Flags"),
+                        self.tr("""Flag Removal is selected, but there are more provinces than there are flags in the folder."""),
+                        QMessageBox.StandardButtons(
+                            QMessageBox.Cancel))
+                    logging.info('~~~ Aborted: Not enough flags in folder.')
+                    return
+                else:
+                    import os
+                    psueod_flag_log_rel_path = "Databases\\Flags\\Removed\\"
+                    pseudo_log_path = psueod_flag_log_rel_path + 'removed_flag_list.log'
+                    os.makedirs(os.path.dirname(pseudo_log_path), exist_ok=True)  # create folder
+                    with open(pseudo_log_path, "w+") as file:
+                        file.write("~~~~~~~~~~~~~~\nFor run ID %s\n" % (last_file_id))
+                    pass
             workbench.execute.write(fileName, startID, culture, religion, is_tribal, terrain, rgb_basis,
                                     flag_removal)
             logging.info('----- Exited Writing ----- ')
@@ -249,8 +268,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 QMessageBox.information(self, "Complete", "Complete\n\nCheck the Output folder")
             from _workbench import configs
             logging.info('Writing Config')
-            config_obj = configs.configs()
-            last_file_id = config_obj.read_config('Last_Setup', 'Last_File_ID')
             last_file_id_int: int = int(last_file_id)
             last_file_id_int += 1
             last_file_id = str(last_file_id_int)
