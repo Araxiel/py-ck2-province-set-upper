@@ -22,14 +22,13 @@ ___
 
 ### About
 
-Written for CK2 2.8.3.3 (SAHQ)
-
-Tested with **CK2 2.8.3.3 (SAHQ)**
-
-|      | Version |
-| ---      | ---       |
-|  Current Release version:  | [1.3.1][release_page]  |
-|  Current Repo version: |  **1.3.2**  |
+|                         	| Version                	|
+|-------------------------	|------------------------	|
+|  Written for            	| CK2 2.8.3.3 (SAHQ)     	|
+|  Tested with            	| **CK2 2.8.3.3 (SAHQ)** 	|
+|                         	|                        	|
+| Current Release version 	| [1.3.1][release_page]  	|
+| Current Repo version    	| **1.3.2**              	|
 
 Using a comma-separated values table as a source, all necessary files and lines of codes are automatically create for all the provinces and baronies in the source file.
 
