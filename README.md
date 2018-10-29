@@ -26,9 +26,16 @@ Written for CK2 2.8.3.3 (SAHQ)
 
 Tested with **CK2 2.8.3.3 (SAHQ)**
 
+|      | Version |
+| ---      | ---       |
+|  Current Release version:  | [1.3.1][release_page]  |
+|  Current Repo version: |  **1.3.2**  |
+
 Using a comma-separated values table as a source, all necessary files and lines of codes are automatically create for all the provinces and baronies in the source file.
 
 Written using [Python 3.7.0](https://www.python.org/downloads/release/python-370/)
+
+[File Bug Report](https://github.com/Araxiel/CK2-Province_Set-Upper/issues/new?template=bug_report.md)
 
 ### Other Info
 
@@ -37,9 +44,11 @@ This is a super leightweight little tool I wrote for myself using Python. It's n
 It's use lies somewhere between doing everything manually, and something like CK2's StoryGen.
 
 #### Planned:
-  * Random Dynasty generator
-  * Random History generator
+  * [Random Dynasty generator](https://github.com/Araxiel/CK2-Province_Set-Upper/issues/7)
+  * [Random History generator](https://github.com/Araxiel/CK2-Province_Set-Upper/issues/6)
   * For more [see `enhancement` label](https://github.com/Araxiel/CK2-Province_Set-Upper/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
+
+[File Feature Request](https://github.com/Araxiel/CK2-Province_Set-Upper/issues/new?template=feature_request.md)
 
 Any help and contributions are welcome. Just open an issue or pull request or shot me a message or whatever.
 ___
