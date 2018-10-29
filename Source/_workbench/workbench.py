@@ -75,7 +75,7 @@ class province():
                     file.write("title = c_" + underscored_name + "\n\n")
                     file.write("# Settlements\nmax_settlements = " + str(len(province_dict.keys())-1) + "\n")
                     if ( is_tribal == True ):
-                        file.write("b_" + province_dict.get("barony_1").lower().replace(" ", "_") + " = tribe\n")
+                        file.write("b_" + province_dict.get("barony_1").lower().replace(" ", "_") + " = tribal\n")
                         import random
                         temple_chance = random.randint(1, 100)
                         if temple_chance <= templeDist:
